@@ -1,4 +1,4 @@
-package org.bitbucket.lcleite.desafioandroid.interaction.repository.impl;
+package org.bitbucket.lcleite.desafioandroid.interaction.repository;
 
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.mapper.RepositoryDataModelMapper;
