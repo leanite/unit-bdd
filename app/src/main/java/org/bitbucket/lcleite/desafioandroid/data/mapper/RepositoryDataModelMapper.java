@@ -37,6 +37,7 @@ public class RepositoryDataModelMapper implements DataModelMapper<Repository, Re
         return repository;
     }
 
+    @Override
     public List<Repository> toEntityList(List<RepositoryDataModel> dataModelList){
         List<Repository> repositories = new ArrayList<>();
 
@@ -50,6 +51,11 @@ public class RepositoryDataModelMapper implements DataModelMapper<Repository, Re
 
     @Override
     public RepositoryDataModel toDataModel(Repository entity) {
+        return null;
+    }
+
+    @Override
+    public List<RepositoryDataModel> toDataModelList(List<Repository> entity) {
         return null;
     }
 }

@@ -6,7 +6,9 @@ import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.utils.DateUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by leandro on 22/12/2017.
@@ -48,7 +50,24 @@ public class PullRequestDataModelMapper implements DataModelMapper<PullRequest, 
     }
 
     @Override
+    public List<PullRequest> toEntityList(List<PullRequestDataModel> dataModelList){
+        List<PullRequest> pullRequests = new ArrayList<>();
+
+        for(PullRequestDataModel dataModel : dataModelList){
+            PullRequest pullRequest = toEntity(dataModel);
+            pullRequests.add(pullRequest);
+        }
+
+        return pullRequests;
+    }
+
+    @Override
     public PullRequestDataModel toDataModel(PullRequest entity) {
+        return null;
+    }
+
+    @Override
+    public List<PullRequestDataModel> toDataModelList(List<PullRequest> entity) {
         return null;
     }
 }
