@@ -10,10 +10,10 @@ import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.Re
 
 public class RepositoryListController {
 
-    private RepositoryListPresenter presenter;
+    private RepositoryListPresenter presenter; /*FIXME: remove*/
     private GetRepositoriesUseCase getRepositoriesUseCase;
 
-    public RepositoryListController(RepositoryListPresenter presenter, GetRepositoriesUseCase getRepositoriesUseCase) {
+    public RepositoryListController(/*FIXME: remove*/RepositoryListPresenter presenter, GetRepositoriesUseCase getRepositoriesUseCase) {
         this.presenter = presenter;
         this.getRepositoriesUseCase = getRepositoriesUseCase;
     }
