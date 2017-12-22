@@ -9,7 +9,7 @@ import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.Re
 
 public interface GetRepositoriesInput {
 
-    void getRepositories(RequestData requestData, RepositoryListPresenter presenter);
+    void getRepositories(RequestData requestData);
 
     class RequestData {
         private int pageNumber;

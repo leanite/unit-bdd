@@ -10,11 +10,9 @@ import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.Re
 
 public class RepositoryListController {
 
-    private RepositoryListPresenter presenter; /*FIXME: remove*/
     private GetRepositoriesUseCase getRepositoriesUseCase;
 
-    public RepositoryListController(/*FIXME: remove*/RepositoryListPresenter presenter, GetRepositoriesUseCase getRepositoriesUseCase) {
-        this.presenter = presenter;
+    public RepositoryListController(GetRepositoriesUseCase getRepositoriesUseCase) {
         this.getRepositoriesUseCase = getRepositoriesUseCase;
     }
 
@@ -22,6 +20,6 @@ public class RepositoryListController {
         GetRepositoriesInput.RequestData requestData = new GetRepositoriesInput.RequestData();
         requestData.setPageNumber(pageNumber);
 
-        getRepositoriesUseCase.getRepositories(requestData, presenter);
+        getRepositoriesUseCase.getRepositories(requestData);
     }
 }

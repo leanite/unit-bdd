@@ -4,7 +4,6 @@ import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.Repositor
 import org.bitbucket.lcleite.desafioandroid.data.mapper.RepositoryDataModelMapper;
 import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesInput;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesUseCase;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.RepositoryListPresenter;
@@ -22,17 +21,17 @@ import retrofit2.Response;
 public class GetRepositoriesUseCaseImpl implements GetRepositoriesUseCase, Callback<GetRepositoriesOutput.ResponseData> {
 
     private RepositoryDataSource repositoryDataSource;
-    private RepositoryListPresenter repositoryListPresenter; //FIXME: RepositoryListPresenter -> GetRepositoriesInput
+    private GetRepositoriesOutput repositoryListPresenter;
     private RepositoryDataModelMapper repositoryDataMapper;
 
-    public GetRepositoriesUseCaseImpl(RepositoryDataSource repositoryDataSource, RepositoryListPresenter repositoryListPresenter) {
+    public GetRepositoriesUseCaseImpl(RepositoryDataSource repositoryDataSource, GetRepositoriesOutput repositoryListPresenter) {
         this.repositoryDataSource = repositoryDataSource;
         this.repositoryListPresenter = repositoryListPresenter;
         this.repositoryDataMapper = new RepositoryDataModelMapper();
     }
 
     @Override
-    public void getRepositories(RequestData requestData, /*FIXME: remove*/RepositoryListPresenter presenter) {
+    public void getRepositories(RequestData requestData) {
         int pageNumber = requestData.getPageNumber();
 
         repositoryDataSource.getRepositoriesAtPageNumber(pageNumber, this);

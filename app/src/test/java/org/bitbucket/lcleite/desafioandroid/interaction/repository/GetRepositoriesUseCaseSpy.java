@@ -19,17 +19,17 @@ import retrofit2.Response;
 public class GetRepositoriesUseCaseSpy implements GetRepositoriesUseCase, Callback<GetRepositoriesOutput.ResponseData> {
 
     private RepositoryDataSource repositoryDataSource;
-    private RepositoryListPresenter repositoryListPresenter;
+    private GetRepositoriesOutput repositoryListPresenter;
     private RepositoryDataModelMapper repositoryDataMapper;
 
-    public GetRepositoriesUseCaseSpy(RepositoryDataSource repositoryDataSource, RepositoryListPresenter repositoryListPresenter) {
+    public GetRepositoriesUseCaseSpy(RepositoryDataSource repositoryDataSource, GetRepositoriesOutput repositoryListPresenter) {
         this.repositoryDataSource = repositoryDataSource;
         this.repositoryListPresenter = repositoryListPresenter;
         this.repositoryDataMapper = new RepositoryDataModelMapper();
     }
 
     @Override
-    public void getRepositories(RequestData requestData, RepositoryListPresenter presenter) {
+    public void getRepositories(RequestData requestData) {
         int pageNumber = requestData.getPageNumber();
 
         repositoryDataSource.getRepositoriesAtPageNumber(pageNumber, this);

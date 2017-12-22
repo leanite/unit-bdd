@@ -26,7 +26,7 @@ public class GetRepositoriesTest {
         presenter = new RepositoryListPresenterSpy();
         dataSource = new RepositoryDataSourceSpy();
         useCase = new GetRepositoriesUseCaseSpy(dataSource, presenter);
-        controller = new RepositoryListController(presenter, useCase);
+        controller = new RepositoryListController(useCase);
     }
 
     @Test
