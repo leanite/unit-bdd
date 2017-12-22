@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by leandro on 22/12/2017.
  */
 
-public class PullRequest {
+public class PullRequest extends Entity{
 
     private User creator;
     private String title;

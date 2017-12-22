@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by leandro on 22/12/2017.
  */
 
-public class UserDataModel {
+public class UserDataModel extends DataModel{
 
     @SerializedName("login")
     private String username;

@@ -4,7 +4,7 @@ package org.bitbucket.lcleite.desafioandroid.entity;
  * Created by leandro on 22/12/2017.
  */
 
-public class User {
+public class User extends Entity{
 
     private String username;
     private String name;
