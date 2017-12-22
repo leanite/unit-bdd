@@ -10,7 +10,7 @@ import org.bitbucket.lcleite.desafioandroid.entity.User;
 
 public class RepositoryDataModel extends DataModel{
 
-    @SerializedName("user")
+    @SerializedName("owner")
     private UserDataModel owner;
 
     @SerializedName("name")

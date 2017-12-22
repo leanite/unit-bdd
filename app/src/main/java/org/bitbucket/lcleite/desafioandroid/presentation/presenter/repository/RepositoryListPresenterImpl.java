@@ -1,7 +1,6 @@
 package org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository;
 
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
 
 import java.util.List;
 

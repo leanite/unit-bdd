@@ -1,5 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.entity;
 
+import java.util.Objects;
+
 /**
  * Created by leandro on 22/12/2017.
  */
@@ -77,5 +79,21 @@ public class Repository extends Entity {
 
     public void setIssues(int issues) {
         this.issues = issues;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        Repository repository = (Repository) other;
+        return forks == repository.forks &&
+                stars == repository.stars &&
+                issues == repository.issues &&
+                Objects.equals(owner, repository.owner) &&
+                Objects.equals(name, repository.name) &&
+                Objects.equals(fullName, repository.fullName) &&
+                Objects.equals(url, repository.url) &&
+                Objects.equals(description, repository.description);
     }
 }

@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class DateUtils {
 
-    private static final String GITHUB_DATE_FORMAT = "YYYY-MM-DDTHH:MM:SSZ";
+    private static final String GITHUB_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     private static final String APP_LIST_DATE_FORMAT = "MM dd yyyy";
 
     public static Date createDateFromString(String dateString) {

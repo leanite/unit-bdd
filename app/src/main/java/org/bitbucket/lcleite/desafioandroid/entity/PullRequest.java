@@ -1,6 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by leandro on 22/12/2017.
@@ -61,5 +62,19 @@ public class PullRequest extends Entity{
 
     public void setMerged(boolean merged) {
         this.merged = merged;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        PullRequest pullRequest = (PullRequest) other;
+        return open == pullRequest.open &&
+                merged == pullRequest.merged &&
+                Objects.equals(creator, pullRequest.creator) &&
+                Objects.equals(title, pullRequest.title) &&
+                Objects.equals(body, pullRequest.body) &&
+                Objects.equals(createdAt, pullRequest.createdAt);
     }
 }

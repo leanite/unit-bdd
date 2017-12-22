@@ -1,5 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.entity;
 
+import java.util.Objects;
+
 /**
  * Created by leandro on 22/12/2017.
  */
@@ -32,5 +34,16 @@ public class User extends Entity{
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    @Override
+    public final boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        User user = (User) other;
+        return Objects.equals(username, user.username) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(avatarUrl, user.avatarUrl);
     }
 }
