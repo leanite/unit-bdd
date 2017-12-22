@@ -3,6 +3,7 @@ package org.bitbucket.lcleite.desafioandroid.interaction.repository;
 import com.google.gson.annotations.SerializedName;
 
 import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
+import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 
 public interface GetRepositoriesOutput {
-    void onGetRepositoriesSuccess(ResponseData responseData);
+    void onGetRepositoriesSuccess(List<Repository> repositories);
     void onGetRepositoriesError(ErrorData errorData);
 
     class ResponseData{

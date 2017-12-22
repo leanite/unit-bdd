@@ -2,10 +2,14 @@ package org.bitbucket.lcleite.desafioandroid.interaction.repository.impl;
 
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.mapper.RepositoryDataModelMapper;
+import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
+import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesInput;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesUseCase;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.RepositoryListPresenter;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +40,10 @@ public class GetRepositoriesUseCaseImpl implements GetRepositoriesUseCase, Callb
 
     @Override
     public void onResponse(Call<GetRepositoriesOutput.ResponseData> call, Response<GetRepositoriesOutput.ResponseData> response) {
+        List<RepositoryDataModel> repositoriesData = response.body().getRepositories();
+        List<Repository> repositories = repositoryDataMapper.toEntityList(repositoriesData);
 
+        repositoryListPresenter.onGetRepositoriesSuccess(repositories);
     }
 
     @Override

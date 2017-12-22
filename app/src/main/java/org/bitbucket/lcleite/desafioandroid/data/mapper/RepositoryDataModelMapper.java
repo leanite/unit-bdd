@@ -5,6 +5,9 @@ import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by leandro on 22/12/2017.
  */
@@ -32,6 +35,17 @@ public class RepositoryDataModelMapper implements DataModelMapper<Repository, Re
         repository.setIssues(dataModel.getIssues());
 
         return repository;
+    }
+
+    public List<Repository> toEntityList(List<RepositoryDataModel> dataModelList){
+        List<Repository> repositories = new ArrayList<>();
+
+        for(RepositoryDataModel dataModel : dataModelList){
+            Repository repository = toEntity(dataModel);
+            repositories.add(repository);
+        }
+
+        return repositories;
     }
 
     @Override
