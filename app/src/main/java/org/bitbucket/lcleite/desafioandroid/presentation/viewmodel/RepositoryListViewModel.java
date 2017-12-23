@@ -12,17 +12,34 @@ import java.util.List;
 public class RepositoryListViewModel {
 
     private List<Repository> repositories;
+    private int currentPage;
 
     public RepositoryListViewModel() {
         repositories = new ArrayList<>();
+        currentPage = 1;
     }
 
     public List<Repository> getRepositories() {
         return repositories;
     }
 
-    public void setRepositories(List<Repository> repositories) {
-        this.repositories.clear();
+    public void appendRepositories(List<Repository> repositories) {
         this.repositories.addAll(repositories);
+    }
+
+    public void clearRepositories(){
+        this.repositories.clear();
+    }
+
+    public void incrementPage(){
+        currentPage += 1;
+    }
+
+    public int getCurrentPage(){
+        return currentPage;
+    }
+
+    public void resetPage(){
+        currentPage = 1;
     }
 }

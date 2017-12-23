@@ -19,6 +19,7 @@ import org.bitbucket.lcleite.desafioandroid.presentation.viewmodel.RepositoryLis
 import org.bitbucket.lcleite.desafioandroid.ui.adapter.RepositoryListAdapter;
 import org.bitbucket.lcleite.desafioandroid.ui.app.App;
 import org.bitbucket.lcleite.desafioandroid.ui.divider.ListDivider;
+import org.bitbucket.lcleite.desafioandroid.ui.scroll.EndlessScrollListener;
 
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     RepositoryListViewModel repositoryListViewModel;
 
     RepositoryListAdapter repositoriesAdapter;
+    EndlessScrollListener endlessScrollListener;
 
     @AfterViews
     protected void setup(){
@@ -85,10 +87,12 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     }
 
     private void setupRepositoriesRecyclerView() {
+        endlessScrollListener = new EndlessScrollListener(this);
         repositoriesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         repositoriesRecyclerView.setAdapter(repositoriesAdapter);
         repositoriesRecyclerView.addItemDecoration(
                 new ListDivider(ContextCompat.getDrawable(this, R.drawable.divider_item_list)));
+        repositoriesRecyclerView.addOnScrollListener(endlessScrollListener);
     }
 
     private void setupPresenters(){
@@ -96,12 +100,15 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     }
 
     private void onSetupDone() {
-        repositoryListController.getRepositories(1);
+        getRepositories();
     }
 
     @Override
     public void onRefresh() {
-
+        repositoryListViewModel.resetPage();
+        repositoryListViewModel.clearRepositories();
+        endlessScrollListener.reset();
+        getRepositories();
     }
 
     @Override
@@ -110,12 +117,24 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     }
 
     @Override
+    public void endlessLoadMoreItems() {
+        repositoryListViewModel.incrementPage();
+        getRepositories();
+    }
+
+    @Override
     public void updateRepositories(List<Repository> repositories) {
-        repositoryListViewModel.setRepositories(repositories);
+        repositoryListViewModel.appendRepositories(repositories);
     }
 
     @Override
     public void updateUiAfterQuery() {
+        swipeRefresh.setRefreshing(false);
         repositoriesAdapter.notifyDataSetChanged();
+    }
+
+    private void getRepositories(){
+        swipeRefresh.setRefreshing(true);
+        repositoryListController.getRepositories(repositoryListViewModel.getCurrentPage());
     }
 }
