@@ -1,6 +1,6 @@
 package org.bitbucket.lcleite.desafioandroid.injection;
 
-import android.support.v7.app.AppCompatActivity;
+import org.bitbucket.lcleite.desafioandroid.ui.RepositoryListActivity;
 
 import javax.inject.Singleton;
 
@@ -13,5 +13,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class, RepositoryListModule.class})
 public interface ApplicationComponent {
-    void inject(AppCompatActivity target);
+    void inject(RepositoryListActivity target);
 }

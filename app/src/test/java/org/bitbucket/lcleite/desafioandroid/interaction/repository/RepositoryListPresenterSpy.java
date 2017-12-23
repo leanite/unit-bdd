@@ -2,6 +2,7 @@ package org.bitbucket.lcleite.desafioandroid.interaction.repository;
 
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.RepositoryListPresenter;
+import org.bitbucket.lcleite.desafioandroid.presentation.view.RepositoryListView;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public class RepositoryListPresenterSpy implements RepositoryListPresenter {
     public void onGetRepositoriesError(ErrorData errorData) {
 
     }
+
+    @Override
+    public void setView(RepositoryListView view) {}
 }

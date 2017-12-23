@@ -3,20 +3,21 @@ package org.bitbucket.lcleite.desafioandroid.ui;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.presentation.controller.repository.RepositoryListController;
+import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.RepositoryListPresenter;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.RepositoryListView;
 import org.bitbucket.lcleite.desafioandroid.presentation.viewmodel.RepositoryListViewModel;
 import org.bitbucket.lcleite.desafioandroid.ui.adapter.RepositoryListAdapter;
+import org.bitbucket.lcleite.desafioandroid.ui.app.App;
 import org.bitbucket.lcleite.desafioandroid.ui.divider.ListDivider;
 
 import java.util.List;
@@ -35,14 +36,32 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     @ViewById(R.id.rvRepositoryList)
     protected RecyclerView repositoriesRecyclerView;
 
+    @Inject
+    RepositoryListController repositoryListController;
+
+    @Inject
+    RepositoryListPresenter repositoryListPresenter;
+
+    @Inject
     RepositoryListViewModel repositoryListViewModel;
+
     RepositoryListAdapter repositoriesAdapter;
 
     @AfterViews
     protected void setup(){
+        setupInjection();
+        setupViews();
+        setupPresenters();
+        onSetupDone();
+    }
+
+    private void setupInjection(){
+        ((App) getApplication()).getComponent().inject(this);
+    }
+
+    private void setupViews(){
         setupAppBar();
         setupRefreshContainer();
-        setupViewModel();
         setupRepositoriesRecyclerViewAdapter();
         setupRepositoriesRecyclerView();
     }
@@ -60,10 +79,6 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
         );
     }
 
-    private void setupViewModel(){
-        repositoryListViewModel = new RepositoryListViewModel();
-    }
-
     private void setupRepositoriesRecyclerViewAdapter(){
         repositoriesAdapter = new RepositoryListAdapter(repositoryListViewModel.getRepositories());
         repositoriesAdapter.setOnItemClickListener(this);
@@ -76,6 +91,14 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
                 new ListDivider(ContextCompat.getDrawable(this, R.drawable.divider_item_list)));
     }
 
+    private void setupPresenters(){
+        repositoryListPresenter.setView(this);
+    }
+
+    private void onSetupDone() {
+        repositoryListController.getRepositories(1);
+    }
+
     @Override
     public void onRefresh() {
 
@@ -84,5 +107,15 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    @Override
+    public void updateRepositories(List<Repository> repositories) {
+        repositoryListViewModel.setRepositories(repositories);
+    }
+
+    @Override
+    public void updateUiAfterQuery() {
+        repositoriesAdapter.notifyDataSetChanged();
     }
 }

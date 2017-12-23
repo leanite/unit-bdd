@@ -1,5 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.injection;
 
+import android.content.Context;
+
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryNetwork;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesUseCase;
@@ -8,6 +10,8 @@ import org.bitbucket.lcleite.desafioandroid.presentation.controller.repository.R
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.RepositoryListPresenter;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.RepositoryListPresenterImpl;
 import org.bitbucket.lcleite.desafioandroid.presentation.viewmodel.RepositoryListViewModel;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,6 +23,7 @@ import dagger.Provides;
 @Module
 public class RepositoryListModule {
     @Provides
+    @Singleton
     public RepositoryListPresenter provideRepositoryListPresenter(){
         return new RepositoryListPresenterImpl();
     }
@@ -36,5 +41,10 @@ public class RepositoryListModule {
     @Provides
     public RepositoryListController provideRepositoryListController(GetRepositoriesUseCase useCase){
         return new RepositoryListController(useCase);
+    }
+
+    @Provides
+    public RepositoryListViewModel provideRepositoryListViewModel(){
+        return new RepositoryListViewModel();
     }
 }
