@@ -1,12 +1,9 @@
 package org.bitbucket.lcleite.desafioandroid.interaction.repository;
 
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
-import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -46,19 +43,5 @@ public class RepositoryDataSourceSpy implements RepositoryDataSource {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private GetRepositoriesOutput.ResponseData createResponseDataMock(){
-        GetRepositoriesOutput.ResponseData responseData = new GetRepositoriesOutput.ResponseData();
-
-        responseData.setRepositories(createRepositoryDataListMock());
-
-        return responseData;
-    }
-
-    private List<RepositoryDataModel> createRepositoryDataListMock() {
-        List<RepositoryDataModel> repositoryDataModels = new ArrayList<>();
-
-        return repositoryDataModels;
     }
 }

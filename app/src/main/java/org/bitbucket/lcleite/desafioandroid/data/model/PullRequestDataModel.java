@@ -18,7 +18,7 @@ public class PullRequestDataModel extends DataModel{
     @SerializedName("title")
     private String title;
 
-    @SerializedName("status")
+    @SerializedName("state")
     private String status;
 
     @SerializedName("body")

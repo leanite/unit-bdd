@@ -1,5 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.interaction.pullrequest;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 

@@ -1,8 +1,10 @@
 package org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest;
 
 
+import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
+
+import java.util.List;
 
 import retrofit2.Callback;
 
@@ -15,5 +17,5 @@ public interface PullRequestDataSource {
             Repository repository,
             String state,
             int pageNumber,
-            Callback<GetPullRequestsOutput.ResponseData> callback);
+            Callback<List<PullRequestDataModel>> callback);
 }

@@ -16,12 +16,13 @@ import retrofit2.Response;
  * Created by leandro on 22/12/2017.
  */
 
-public class GetPullRequestsUseCaseImpl implements GetPullRequestsUseCase, Callback<List<PullRequestDataModel>> {
+public class GetPullRequestsUseCaseSpy implements GetPullRequestsUseCase, Callback<List<PullRequestDataModel>> {
+
     private PullRequestDataSource pullRequestDataSource;
     private GetPullRequestsOutput pullRequestListPresenter;
     private PullRequestDataModelMapper pullRequestDataMapper;
 
-    public GetPullRequestsUseCaseImpl(PullRequestDataSource pullRequestDataSource, GetPullRequestsOutput pullRequestListPresenter) {
+    public GetPullRequestsUseCaseSpy(PullRequestDataSource pullRequestDataSource, GetPullRequestsOutput pullRequestListPresenter) {
         this.pullRequestDataSource = pullRequestDataSource;
         this.pullRequestListPresenter = pullRequestListPresenter;
         this.pullRequestDataMapper = new PullRequestDataModelMapper();
