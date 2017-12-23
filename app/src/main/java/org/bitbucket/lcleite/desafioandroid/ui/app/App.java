@@ -2,9 +2,9 @@ package org.bitbucket.lcleite.desafioandroid.ui.app;
 
 import android.app.Application;
 
-import org.bitbucket.lcleite.desafioandroid.injection.ApplicationComponent;
 import org.bitbucket.lcleite.desafioandroid.injection.ApplicationModule;
-import org.bitbucket.lcleite.desafioandroid.injection.DaggerApplicationComponent;
+import org.bitbucket.lcleite.desafioandroid.injection.DaggerRepositoryListComponent;
+import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListComponent;
 import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListModule;
 
 /**
@@ -13,19 +13,19 @@ import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListModule;
 
 public class App extends Application {
 
-    private ApplicationComponent component;
+    private RepositoryListComponent repositoryListComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        component = DaggerApplicationComponent.builder()
+        repositoryListComponent = DaggerRepositoryListComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .repositoryListModule(new RepositoryListModule())
                 .build();
     }
 
-    public ApplicationComponent getComponent() {
-        return component;
+    public RepositoryListComponent getRepositoryListComponent() {
+        return repositoryListComponent;
     }
 }

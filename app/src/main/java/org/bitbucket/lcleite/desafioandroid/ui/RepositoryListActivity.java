@@ -58,7 +58,7 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     }
 
     private void setupInjection(){
-        ((App) getApplication()).getComponent().inject(this);
+        ((App) getApplication()).getRepositoryListComponent().inject(this);
     }
 
     private void setupViews(){

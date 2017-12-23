@@ -25,7 +25,6 @@ public class RepositoryListPresenterImpl implements RepositoryListPresenter {
 
     @Override
     public void onGetRepositoriesSuccess(List<Repository> repositories) {
-        Log.d("OK", repositories.toArray().toString());
         repositoryView.updateRepositories(repositories);
         repositoryView.updateUiAfterQuery();
     }
