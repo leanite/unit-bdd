@@ -38,7 +38,7 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     protected RecyclerView repositoriesRecyclerView;
 
     @Inject
-    RepositoryListController repositoryListController;
+    RepositoryListController repositoryListController; //FIXME: private
 
     @Inject
     RepositoryListPresenter repositoryListPresenter;
