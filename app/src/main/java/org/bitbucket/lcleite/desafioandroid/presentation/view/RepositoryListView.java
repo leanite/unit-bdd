@@ -9,4 +9,6 @@ import org.bitbucket.lcleite.desafioandroid.ui.adapter.RepositoryListAdapter;
  */
 
 public interface RepositoryListView extends
-        SwipeRefreshLayout.OnRefreshListener, RepositoryListAdapter.OnItemClickListener {}
+        SwipeRefreshLayout.OnRefreshListener, RepositoryListAdapter.OnItemClickListener {
+
+}

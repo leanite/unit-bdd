@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
@@ -19,10 +21,12 @@ import org.bitbucket.lcleite.desafioandroid.ui.divider.ListDivider;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 @EActivity(R.layout.activity_repositorylist)
 public class RepositoryListActivity extends AppCompatActivity implements RepositoryListView {
 
-    @ViewById
+    @ViewById(R.id.appBar)
     protected Toolbar appBar;
 
     @ViewById(R.id.refreshContainer)
@@ -31,17 +35,14 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     @ViewById(R.id.rvRepositoryList)
     protected RecyclerView repositoriesRecyclerView;
 
-
-    //TODO: inject
     RepositoryListViewModel repositoryListViewModel;
-
     RepositoryListAdapter repositoriesAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @AfterViews
+    protected void setup(){
         setupAppBar();
         setupRefreshContainer();
+        setupViewModel();
         setupRepositoriesRecyclerViewAdapter();
         setupRepositoriesRecyclerView();
     }
@@ -57,6 +58,10 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
                 ContextCompat.getColor(this, R.color.colorPrimary),
                 ContextCompat.getColor(this, R.color.colorAccent)
         );
+    }
+
+    private void setupViewModel(){
+        repositoryListViewModel = new RepositoryListViewModel();
     }
 
     private void setupRepositoriesRecyclerViewAdapter(){
