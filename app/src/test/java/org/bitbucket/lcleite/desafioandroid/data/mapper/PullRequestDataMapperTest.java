@@ -3,7 +3,6 @@ package org.bitbucket.lcleite.desafioandroid.data.mapper;
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.model.UserDataModel;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.utils.DateUtils;
 import org.junit.Before;
@@ -40,7 +39,7 @@ public class PullRequestDataMapperTest {
 
         pullRequestDataModel.setCreator(creator);
         pullRequestDataModel.setTitle("Pull Request #17");
-        pullRequestDataModel.setStatus("open");
+        pullRequestDataModel.setState("open");
         pullRequestDataModel.setBody("Pull Request body");
         pullRequestDataModel.setCreatedAt("2013-01-08T20:11:48Z");
         pullRequestDataModel.setMergedAt(null);

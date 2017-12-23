@@ -2,10 +2,6 @@ package org.bitbucket.lcleite.desafioandroid.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.bitbucket.lcleite.desafioandroid.entity.User;
-
-import java.util.Date;
-
 /**
  * Created by leandro on 22/12/2017.
  */
@@ -19,7 +15,7 @@ public class PullRequestDataModel extends DataModel{
     private String title;
 
     @SerializedName("state")
-    private String status;
+    private String state;
 
     @SerializedName("body")
     private String body;
@@ -46,12 +42,12 @@ public class PullRequestDataModel extends DataModel{
         this.title = title;
     }
 
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getBody() {

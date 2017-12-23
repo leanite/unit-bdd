@@ -11,6 +11,7 @@ import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositori
 import java.io.IOException;
 import java.util.List;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,9 +27,9 @@ public class PullRequestDataSourceSpy implements PullRequestDataSource {
     private Retrofit retrofit;
     private PullRequestRetrofitService service;
 
-    public PullRequestDataSourceSpy(String state) {
+    public PullRequestDataSourceSpy(Interceptor interceptor) {
         OkHttpClient client = new OkHttpClient.Builder() //FIXME: duplicated code
-                .addInterceptor(new GetPullRequestsMockInterceptor(state))
+                .addInterceptor(interceptor)
                 .build();
 
         retrofit = new Retrofit.Builder()
