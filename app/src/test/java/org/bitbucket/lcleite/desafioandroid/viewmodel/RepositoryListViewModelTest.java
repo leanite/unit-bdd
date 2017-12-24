@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class RepositoryListViewModelTest {
 
-    RepositoryListViewModel viewModel;
+    private RepositoryListViewModel viewModel;
 
     @Before
     public void setup(){
