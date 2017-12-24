@@ -1,7 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.data.service;
 
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
-import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by leandro on 22/12/2017.
+ * Created by leandro on 24/12/2017.
  */
 
 public interface PullRequestRetrofitService {
@@ -22,4 +22,10 @@ public interface PullRequestRetrofitService {
             @Path("repositoryName") String repositoryName,
             @Query("state") String state,
             @Query("page") int pageNumber);
+
+    @GET("search/issues?q=+type:pr+repo:{username}/{repositoryName}+state:{state}")
+    Call<GetAmountPullRequestsOutput.ResponseData> getAmountPullRequests(
+            @Path("username") String username,
+            @Path("repositoryName") String repositoryName,
+            @Path("state") String state);
 }

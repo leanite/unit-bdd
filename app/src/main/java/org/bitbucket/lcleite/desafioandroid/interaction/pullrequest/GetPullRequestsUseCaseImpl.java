@@ -9,14 +9,13 @@ import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
  * Created by leandro on 22/12/2017.
  */
 
-public class GetPullRequestsUseCaseImpl implements GetPullRequestsUseCase, Callback<List<PullRequestDataModel>> {
+public class GetPullRequestsUseCaseImpl implements GetPullRequestsUseCase {
     private PullRequestDataSource pullRequestDataSource;
     private GetPullRequestsOutput pullRequestListPresenter;
     private PullRequestDataModelMapper pullRequestDataMapper;

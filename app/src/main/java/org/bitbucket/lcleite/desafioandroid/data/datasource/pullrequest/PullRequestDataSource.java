@@ -3,6 +3,7 @@ package org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest;
 
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
 
 import java.util.List;
 
@@ -18,4 +19,9 @@ public interface PullRequestDataSource {
             String state,
             int pageNumber,
             Callback<List<PullRequestDataModel>> callback);
+
+    void getAmountPullRequests(
+            Repository repository,
+            String state,
+            Callback<GetAmountPullRequestsOutput.ResponseData> callback) ;
 }
