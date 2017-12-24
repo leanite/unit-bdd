@@ -3,6 +3,7 @@ package org.bitbucket.lcleite.desafioandroid.interaction.pullrequest;
 
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenter;
+import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestListView;
 
 import java.util.List;
 
@@ -25,6 +26,11 @@ public class PullRequestListPresenterSpy implements PullRequestListPresenter {
 
     @Override
     public void onGetPullRequestsError(ErrorData errorData) {
+
+    }
+
+    @Override
+    public void setView(PullRequestListView view) {
 
     }
 }

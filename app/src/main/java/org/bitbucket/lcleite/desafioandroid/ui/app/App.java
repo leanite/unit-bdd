@@ -3,7 +3,10 @@ package org.bitbucket.lcleite.desafioandroid.ui.app;
 import android.app.Application;
 
 import org.bitbucket.lcleite.desafioandroid.injection.ApplicationModule;
+import org.bitbucket.lcleite.desafioandroid.injection.DaggerPullRequestListComponent;
 import org.bitbucket.lcleite.desafioandroid.injection.DaggerRepositoryListComponent;
+import org.bitbucket.lcleite.desafioandroid.injection.PullRequestListComponent;
+import org.bitbucket.lcleite.desafioandroid.injection.PullRequestListModule;
 import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListComponent;
 import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListModule;
 
@@ -14,6 +17,7 @@ import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListModule;
 public class App extends Application {
 
     private RepositoryListComponent repositoryListComponent;
+    private PullRequestListComponent pullRequestListComponent;
 
     @Override
     public void onCreate() {
@@ -23,9 +27,18 @@ public class App extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .repositoryListModule(new RepositoryListModule())
                 .build();
+
+        pullRequestListComponent = DaggerPullRequestListComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .pullRequestListModule(new PullRequestListModule())
+                .build();
     }
 
     public RepositoryListComponent getRepositoryListComponent() {
         return repositoryListComponent;
+    }
+
+    public PullRequestListComponent getPullRequestListComponent(){
+        return pullRequestListComponent;
     }
 }
