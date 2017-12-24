@@ -1,10 +1,13 @@
 package org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest;
 
+import android.util.Log;
+
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
 
@@ -40,6 +43,20 @@ public class PullRequestNetwork implements PullRequestDataSource{
     public void getPullRequests(Repository repository, String state, int pageNumber, Callback<List<PullRequestDataModel>> callback) {
         Call<List<PullRequestDataModel>> call =
                 service.getPullRequests(repository.getOwner().getUsername(), repository.getName(), state, pageNumber);
+
+        call.enqueue(callback);
+    }
+
+    @Override
+    public void getAmountPullRequests(Repository repository, String state, Callback<GetAmountPullRequestsOutput.ResponseData> callback) {
+        //q=+type:pr+repo:{username}/{repositoryName}+state:{state}
+        String username = repository.getOwner().getUsername();
+        String repositoryName = repository.getName();
+
+        String query = "+type:pr+repo:"+ username + "/" + repositoryName + "+state:" + state;
+
+        Call<GetAmountPullRequestsOutput.ResponseData> call =
+                service.getAmountPullRequests(query);
 
         call.enqueue(callback);
     }

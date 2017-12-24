@@ -23,9 +23,7 @@ public interface PullRequestRetrofitService {
             @Query("state") String state,
             @Query("page") int pageNumber);
 
-    @GET("search/issues?q=+type:pr+repo:{username}/{repositoryName}+state:{state}")
+    @GET("search/issues?")
     Call<GetAmountPullRequestsOutput.ResponseData> getAmountPullRequests(
-            @Path("username") String username,
-            @Path("repositoryName") String repositoryName,
-            @Path("state") String state);
+            @Query(value = "q", encoded = true) String query);
 }

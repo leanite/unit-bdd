@@ -3,11 +3,16 @@ package org.bitbucket.lcleite.desafioandroid.injection;
 
 import org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest.PullRequestDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest.PullRequestNetwork;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsUseCase;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsUseCaseImpl;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsUseCase;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsUseCaseImpl;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestListController;
+import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestMainController;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenter;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenterImpl;
+import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestMainPresenter;
+import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestMainPresenterImpl;
 import org.bitbucket.lcleite.desafioandroid.presentation.viewmodel.PullRequestListViewModel;
 
 import javax.inject.Named;
@@ -68,5 +73,20 @@ public class PullRequestListModule {
     @Provides
     public PullRequestListViewModel providePullRequestListViewModel(){
         return new PullRequestListViewModel();
+    }
+
+    @Provides
+    public PullRequestMainPresenter providePullRequestMainPresenter(){
+        return new PullRequestMainPresenterImpl();
+    }
+
+    @Provides
+    public GetAmountPullRequestsUseCase provideGetAmountPullRequestsUseCase(PullRequestDataSource dataSource, PullRequestMainPresenter presenter){
+        return new GetAmountPullRequestsUseCaseImpl(dataSource, presenter);
+    }
+
+    @Provides
+    public PullRequestMainController providePullRequestMainController(GetAmountPullRequestsUseCase useCase){
+        return new PullRequestMainController(useCase);
     }
 }

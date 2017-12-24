@@ -5,6 +5,7 @@ import org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest.PullRequ
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesMockInterceptor;
 
@@ -54,5 +55,10 @@ public class PullRequestDataSourceSpy implements PullRequestDataSource {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void getAmountPullRequests(Repository repository, String state, Callback<GetAmountPullRequestsOutput.ResponseData> callback) {
+
     }
 }
