@@ -12,10 +12,23 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
+import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestListController;
+import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenter;
+import org.bitbucket.lcleite.desafioandroid.ui.app.App;
+import org.bitbucket.lcleite.desafioandroid.ui.fragment.ClosedPullRequestListFragment;
+import org.bitbucket.lcleite.desafioandroid.ui.fragment.OpenPullRequestListFragment;
 import org.bitbucket.lcleite.desafioandroid.ui.fragment.PullRequestListFragment;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 @EActivity(R.layout.activity_pullrequestlist)
 public class PullRequestListActivity extends AppCompatActivity {
+
+    @Inject @Named("open") PullRequestListController openPullRequestListController; //FIXME: private
+    @Inject @Named("open") PullRequestListPresenter openPullRequestListPresenter;
+    @Inject @Named("closed") PullRequestListController closedPullRequestListController; //FIXME: private
+    @Inject @Named("closed") PullRequestListPresenter closedPullRequestListPresenter;
 
     @ViewById(R.id.appBar) protected Toolbar appBar;
     @ViewById(R.id.tabViewPager) protected ViewPager tabViewPager;
@@ -25,8 +38,13 @@ public class PullRequestListActivity extends AppCompatActivity {
 
     @AfterViews
     protected void setup(){
+        setupInjection();
         setupAppBar();
         setupTabBar();
+    }
+
+    private void setupInjection(){
+        ((App) getApplication()).getPullRequestListComponent().inject(this);
     }
 
     private void setupAppBar() {
@@ -52,9 +70,9 @@ public class PullRequestListActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if(position == 0)
-                return PullRequestListFragment.newInstance();
+                return OpenPullRequestListFragment.newInstance(openPullRequestListPresenter, openPullRequestListController);
             else
-                return PullRequestListFragment.newInstance();
+                return ClosedPullRequestListFragment.newInstance(closedPullRequestListPresenter, closedPullRequestListController);
         }
 
         @Override

@@ -24,7 +24,15 @@ import dagger.Provides;
 public class PullRequestListModule {
     @Provides
     @Singleton
+    @Named("open")
     public PullRequestListPresenter provideOpenPullRequestListPresenter(){
+        return new PullRequestListPresenterImpl();
+    }
+
+    @Provides
+    @Singleton
+    @Named("closed")
+    public PullRequestListPresenter provideClosedPullRequestListPresenter(){
         return new PullRequestListPresenterImpl();
     }
 
@@ -34,12 +42,26 @@ public class PullRequestListModule {
     }
 
     @Provides
-    public GetPullRequestsUseCase provideGetPullRequestsUseCase(PullRequestDataSource dataSource, PullRequestListPresenter presenter){
+    @Named("open")
+    public GetPullRequestsUseCase provideGetOpenPullRequestsUseCase(PullRequestDataSource dataSource, @Named("open") PullRequestListPresenter presenter){
         return new GetPullRequestsUseCaseImpl(dataSource, presenter);
     }
 
     @Provides
-    public PullRequestListController providePullRequestListController(GetPullRequestsUseCase useCase){
+    @Named("closed")
+    public GetPullRequestsUseCase provideGetClosedPullRequestsUseCase(PullRequestDataSource dataSource, @Named("closed") PullRequestListPresenter presenter){
+        return new GetPullRequestsUseCaseImpl(dataSource, presenter);
+    }
+
+    @Provides
+    @Named("open")
+    public PullRequestListController provideOpenPullRequestListController(@Named("open") GetPullRequestsUseCase useCase){
+        return new PullRequestListController(useCase);
+    }
+
+    @Provides
+    @Named("closed")
+    public PullRequestListController provideClosedPullRequestListController(@Named("closed") GetPullRequestsUseCase useCase){
         return new PullRequestListController(useCase);
     }
 

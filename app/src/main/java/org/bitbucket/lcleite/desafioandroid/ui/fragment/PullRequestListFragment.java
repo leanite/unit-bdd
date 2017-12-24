@@ -31,42 +31,48 @@ import org.bitbucket.lcleite.desafioandroid.ui.scroll.EndlessScrollListener;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+public abstract class PullRequestListFragment extends Fragment implements PullRequestListView {
+    protected PullRequestListController pullRequestListController;
+    protected PullRequestListPresenter pullRequestListPresenter;
+    protected PullRequestListViewModel pullRequestListViewModel;
 
-public class PullRequestListFragment extends Fragment implements PullRequestListView {
-    /*
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private SwipeRefreshLayout swipeRefresh;
+    private RecyclerView pullRequestsRecyclerView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    */
+    private PullRequestListAdapter pullRequestsAdapter;
+    private EndlessScrollListener endlessScrollListener;
 
-    protected SwipeRefreshLayout swipeRefresh;
-    protected RecyclerView pullRequestsRecyclerView;
+    public PullRequestListFragment() {}
 
-    @Inject PullRequestListController pullRequestListController; //FIXME: private
-    @Inject PullRequestListPresenter pullRequestListPresenter;
-    @Inject PullRequestListViewModel pullRequestListViewModel;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_pullrequestlist, container, false);
 
-    PullRequestListAdapter pullRequestsAdapter;
-    EndlessScrollListener endlessScrollListener;
+        setup(view);
 
-    public PullRequestListFragment() {
-        // Required empty public constructor
+        return view;
     }
 
-    protected void setup(){
-        setupViews();
+    private void setup(View view){
+        setupModels();
+        setupViews(view);
         onSetupDone();
     }
 
-    private void setupViews(){
+    private void setupModels() {
+        pullRequestListViewModel = new PullRequestListViewModel();
+    }
+
+    private void setupViews(View view){
+        initViews(view);
         setupRefreshContainer();
         setupPullRequestRecyclerViewAdapter();
         setupPullRequestsRecyclerView();
+    }
+
+    private void initViews(View view){
+        swipeRefresh = view.findViewById(R.id.refreshContainer);
+        pullRequestsRecyclerView = view.findViewById(R.id.rvPullRequestList);
     }
 
     private void setupRefreshContainer() {
@@ -91,12 +97,8 @@ public class PullRequestListFragment extends Fragment implements PullRequestList
         pullRequestsRecyclerView.addOnScrollListener(endlessScrollListener);
     }
 
-    private void setupPresenters(){
-        pullRequestListPresenter.setView(this); //TODO: set again when tab changes
-    }
-
-    private void onSetupDone() { //TODO: implement on tab change on activity
-//        getPullRequests();
+    private void onSetupDone() {
+        getPullRequests();
     }
 
     @Override
@@ -130,12 +132,26 @@ public class PullRequestListFragment extends Fragment implements PullRequestList
     }
 
     private void getPullRequests(){
-        setupPresenters();
         swipeRefresh.setRefreshing(true);
         Repository repository = createMockRepository();
-        pullRequestListController.getPullRequests(repository, "closed", pullRequestListViewModel.getCurrentPage());
+        getController().getPullRequests(repository, getPullRequestState(), pullRequestListViewModel.getCurrentPage());
     }
 
+    abstract String getPullRequestState();
+
+    abstract void setController(PullRequestListController controller);
+
+    private PullRequestListController getController(){
+        return pullRequestListController;
+    }
+
+    abstract void setPresenter(PullRequestListPresenter presenter);
+
+    private PullRequestListPresenter getPresenter(){
+        return pullRequestListPresenter;
+    }
+
+    //FIXME: remove mock
     private Repository createMockRepository() {
         Repository repository = new Repository();
         User owner = new User();
@@ -145,39 +161,5 @@ public class PullRequestListFragment extends Fragment implements PullRequestList
         repository.setName("elasticsearch");
 
         return repository;
-    }
-
-    public static PullRequestListFragment newInstance() {
-        PullRequestListFragment fragment = new PullRequestListFragment();
-        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ((App) getContext().getApplicationContext()).getPullRequestListComponent().inject(this);
-
-        View view = inflater.inflate(R.layout.fragment_pullrequestlist, container, false);
-
-        swipeRefresh = view.findViewById(R.id.refreshContainer);
-        pullRequestsRecyclerView = view.findViewById(R.id.rvPullRequestList);
-
-        setup();
-
-        return view;
     }
 }

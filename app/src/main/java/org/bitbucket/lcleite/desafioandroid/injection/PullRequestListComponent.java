@@ -2,7 +2,6 @@ package org.bitbucket.lcleite.desafioandroid.injection;
 
 
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity;
-import org.bitbucket.lcleite.desafioandroid.ui.fragment.PullRequestListFragment;
 
 import javax.inject.Singleton;
 
@@ -15,6 +14,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class, PullRequestListModule.class})
 public interface PullRequestListComponent {
-    void inject(PullRequestListFragment target);
     void inject(PullRequestListActivity target);
 }
