@@ -1,5 +1,6 @@
 package org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest;
 
+import org.bitbucket.lcleite.desafioandroid.data.mapper.PullRequestDataModelMapper;
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
@@ -21,6 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PullRequestNetwork implements PullRequestDataSource{
 
+    private PullRequestDataModelMapper pullRequestDataMapper;
+
     //FIXME: Dependency Injection
 
     private Retrofit retrofit;
@@ -34,14 +37,32 @@ public class PullRequestNetwork implements PullRequestDataSource{
                 .build();
 
         service = retrofit.create(PullRequestRetrofitService.class);
+        pullRequestDataMapper = new PullRequestDataModelMapper();
     }
 
+    //FIXME: remove unchecked
+    //TODO: improve code readability
+
     @Override
-    public void getPullRequests(Repository repository, String state, int pageNumber, Callback<List<PullRequestDataModel>> callback) {
+    @SuppressWarnings("unchecked")
+    public void getPullRequests(Repository repository, String state, int pageNumber, final UseCaseCallback callback) {
         Call<List<PullRequestDataModel>> call =
                 service.getPullRequests(repository.getOwner().getUsername(), repository.getName(), state, pageNumber);
 
-        call.enqueue(callback);
+        call.enqueue(new Callback<List<PullRequestDataModel>>() {
+            @Override
+            public void onResponse(Call<List<PullRequestDataModel>> call, Response<List<PullRequestDataModel>> response) {
+                List<PullRequestDataModel> pullRequestsData = response.body();
+                List<PullRequest> pullRequests = pullRequestDataMapper.toEntityList(pullRequestsData);
+
+                callback.onSuccess(pullRequests);
+            }
+
+            @Override
+            public void onFailure(Call<List<PullRequestDataModel>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
