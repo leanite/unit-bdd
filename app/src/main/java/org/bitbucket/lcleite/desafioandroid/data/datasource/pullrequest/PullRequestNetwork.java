@@ -22,12 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PullRequestNetwork implements PullRequestDataSource{
 
-    private PullRequestDataModelMapper pullRequestDataMapper;
 
     //FIXME: Dependency Injection
-
     private Retrofit retrofit;
     private PullRequestRetrofitService service;
+    private PullRequestDataModelMapper pullRequestDataMapper;
 
     public PullRequestNetwork() {
         //TODO: Add Cache

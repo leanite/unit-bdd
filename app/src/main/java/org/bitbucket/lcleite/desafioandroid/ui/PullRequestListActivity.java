@@ -96,6 +96,7 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
         return repository;
     }
 
+    //FIXME: improve code
     @Override
     public void updateAmountOpenPullRequests(int amountPullRequests) {
         String valueText = String.valueOf(amountPullRequests);

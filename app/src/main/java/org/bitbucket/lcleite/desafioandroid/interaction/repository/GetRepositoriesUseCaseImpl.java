@@ -18,12 +18,10 @@ public class GetRepositoriesUseCaseImpl implements GetRepositoriesUseCase {
 
     private RepositoryDataSource repositoryDataSource;
     private GetRepositoriesOutput repositoryListPresenter;
-    private RepositoryDataModelMapper repositoryDataMapper;
 
     public GetRepositoriesUseCaseImpl(RepositoryDataSource repositoryDataSource, GetRepositoriesOutput repositoryListPresenter) {
         this.repositoryDataSource = repositoryDataSource;
         this.repositoryListPresenter = repositoryListPresenter;
-        this.repositoryDataMapper = new RepositoryDataModelMapper();
     }
 
     @Override
@@ -34,15 +32,12 @@ public class GetRepositoriesUseCaseImpl implements GetRepositoriesUseCase {
     }
 
     @Override
-    public void onResponse(Call<GetRepositoriesOutput.ResponseData> call, Response<GetRepositoriesOutput.ResponseData> response) {
-        List<RepositoryDataModel> repositoriesData = response.body().getRepositories();
-        List<Repository> repositories = repositoryDataMapper.toEntityList(repositoriesData);
-
-        repositoryListPresenter.onGetRepositoriesSuccess(repositories);
+    public void onSuccess(List<Repository> responseData) {
+        repositoryListPresenter.onGetRepositoriesSuccess(responseData);
     }
 
     @Override
-    public void onFailure(Call<GetRepositoriesOutput.ResponseData> call, Throwable t) {
+    public void onError(GetRepositoriesOutput.ErrorData errorData) {
 
     }
 }
