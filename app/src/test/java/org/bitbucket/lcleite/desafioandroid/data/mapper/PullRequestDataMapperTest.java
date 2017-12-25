@@ -39,7 +39,7 @@ public class PullRequestDataMapperTest {
 
         pullRequestDataModel.setCreator(creator);
         pullRequestDataModel.setTitle("Pull Request #17");
-        pullRequestDataModel.setState("open");
+        pullRequestDataModel.setState(PullRequest.State.open.value());
         pullRequestDataModel.setBody("Pull Request body");
         pullRequestDataModel.setCreatedAt("2013-01-08T20:11:48Z");
         pullRequestDataModel.setMergedAt(null);

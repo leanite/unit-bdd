@@ -68,7 +68,7 @@ public class GetPullRequestsTest {
     @Test
     public void itShould_returnNonEmptyOpenPullRequestList(){
         setupOpenStateRequestDataSource();
-        controller.getPullRequests(repository, "open", 1);
+        controller.getPullRequests(repository, PullRequest.State.open.value(), 1);
 
         assertNotEquals(presenter.getPullRequests().size(), 0);
     }
@@ -76,7 +76,7 @@ public class GetPullRequestsTest {
     @Test
     public void itShould_returnNonEmptyClosedPullRequestList(){
         setupClosedStateRequestDataSource();
-        controller.getPullRequests(repository, "closed", 1);
+        controller.getPullRequests(repository, PullRequest.State.closed.value(), 1);
 
         assertNotEquals(presenter.getPullRequests().size(), 0);
     }
@@ -84,7 +84,7 @@ public class GetPullRequestsTest {
     @Test
     public void itShould_returnOnlyOpenPullRequests(){
         setupOpenStateRequestDataSource();
-        controller.getPullRequests(repository, "open", 1);
+        controller.getPullRequests(repository, PullRequest.State.open.value(), 1);
         List<PullRequest> pullRequests = presenter.getPullRequests();
 
         assertTrue(allPullRequestsOpen(pullRequests));
@@ -102,7 +102,7 @@ public class GetPullRequestsTest {
     @Test
     public void itShould_returnOnlyClosedPullRequests(){
         setupClosedStateRequestDataSource();
-        controller.getPullRequests(repository, "closed", 1);
+        controller.getPullRequests(repository, PullRequest.State.closed.value(), 1);
         List<PullRequest> pullRequests = presenter.getPullRequests();
 
         assertTrue(allPullRequestsClosed(pullRequests));

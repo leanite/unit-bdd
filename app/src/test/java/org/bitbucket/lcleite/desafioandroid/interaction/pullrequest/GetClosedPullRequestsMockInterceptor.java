@@ -1,14 +1,5 @@
 package org.bitbucket.lcleite.desafioandroid.interaction.pullrequest;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.Protocol;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-
-
 /**
  * Created by leandro on 22/12/2017.
  */

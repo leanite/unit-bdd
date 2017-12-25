@@ -1,21 +1,16 @@
 package org.bitbucket.lcleite.desafioandroid.ui.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
@@ -25,7 +20,6 @@ import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.P
 import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestListView;
 import org.bitbucket.lcleite.desafioandroid.presentation.viewmodel.PullRequestListViewModel;
 import org.bitbucket.lcleite.desafioandroid.ui.adapter.PullRequestListAdapter;
-import org.bitbucket.lcleite.desafioandroid.ui.app.App;
 import org.bitbucket.lcleite.desafioandroid.ui.divider.ListDivider;
 import org.bitbucket.lcleite.desafioandroid.ui.scroll.EndlessScrollListener;
 
@@ -134,22 +128,14 @@ public abstract class PullRequestListFragment extends Fragment implements PullRe
     private void getPullRequests(){
         swipeRefresh.setRefreshing(true);
         Repository repository = createMockRepository();
-        getController().getPullRequests(repository, getPullRequestState(), pullRequestListViewModel.getCurrentPage());
+        pullRequestListController.getPullRequests(repository, getPullRequestState(), pullRequestListViewModel.getCurrentPage());
     }
 
     abstract String getPullRequestState();
 
     abstract void setController(PullRequestListController controller);
 
-    private PullRequestListController getController(){
-        return pullRequestListController;
-    }
-
     abstract void setPresenter(PullRequestListPresenter presenter);
-
-    private PullRequestListPresenter getPresenter(){
-        return pullRequestListPresenter;
-    }
 
     //FIXME: remove mock
     private Repository createMockRepository() {

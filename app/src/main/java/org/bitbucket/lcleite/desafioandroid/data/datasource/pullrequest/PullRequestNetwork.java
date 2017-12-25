@@ -49,15 +49,16 @@ public class PullRequestNetwork implements PullRequestDataSource{
 
     @Override
     public void getAmountPullRequests(Repository repository, String state, Callback<GetAmountPullRequestsOutput.ResponseData> callback) {
-        //q=+type:pr+repo:{username}/{repositoryName}+state:{state}
+        Call<GetAmountPullRequestsOutput.ResponseData> call =
+                service.getAmountPullRequests(createQuery(repository, state));
+
+        call.enqueue(callback);
+    }
+
+    private String createQuery(Repository repository, String state){
         String username = repository.getOwner().getUsername();
         String repositoryName = repository.getName();
 
-        String query = "+type:pr+repo:"+ username + "/" + repositoryName + "+state:" + state;
-
-        Call<GetAmountPullRequestsOutput.ResponseData> call =
-                service.getAmountPullRequests(query);
-
-        call.enqueue(callback);
+        return "+type:pr+repo:"+ username + "/" + repositoryName + "+state:" + state;
     }
 }

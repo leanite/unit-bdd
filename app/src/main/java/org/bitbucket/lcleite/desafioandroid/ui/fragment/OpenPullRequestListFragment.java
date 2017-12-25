@@ -3,6 +3,7 @@ package org.bitbucket.lcleite.desafioandroid.ui.fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestListController;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenter;
 
@@ -32,7 +33,7 @@ public class OpenPullRequestListFragment extends PullRequestListFragment {
 
     @Override
     String getPullRequestState() {
-        return "open";
+        return PullRequest.State.open.value();
     }
 
     @Override

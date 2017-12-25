@@ -38,7 +38,7 @@ public class PullRequestDataModelMapper implements DataModelMapper<PullRequest, 
     }
 
     private boolean getStatusOpen(PullRequestDataModel dataModel) {
-        return dataModel.getState().equals("open");
+        return dataModel.getState().equals(PullRequest.State.open.value());
     }
 
     private Date getCreationDate(PullRequestDataModel dataModel) {

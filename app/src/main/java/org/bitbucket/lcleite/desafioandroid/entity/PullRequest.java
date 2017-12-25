@@ -9,6 +9,16 @@ import java.util.Objects;
 
 public class PullRequest extends Entity{
 
+    public enum State{
+        open("open"), closed("closed");
+
+        private final String value;
+
+        State(String value){ this.value = value; }
+
+        public String value() { return value; }
+    }
+
     private User creator;
     private String title;
     private boolean open;

@@ -28,23 +28,13 @@ import javax.inject.Inject;
 @EActivity(R.layout.activity_repositorylist)
 public class RepositoryListActivity extends AppCompatActivity implements RepositoryListView {
 
-    @ViewById(R.id.appBar)
-    protected Toolbar appBar;
+    @ViewById(R.id.appBar) protected Toolbar appBar;
+    @ViewById(R.id.refreshContainer) protected SwipeRefreshLayout swipeRefresh;
+    @ViewById(R.id.rvRepositoryList) protected RecyclerView repositoriesRecyclerView;
 
-    @ViewById(R.id.refreshContainer)
-    protected SwipeRefreshLayout swipeRefresh;
-
-    @ViewById(R.id.rvRepositoryList)
-    protected RecyclerView repositoriesRecyclerView;
-
-    @Inject
-    RepositoryListController repositoryListController; //FIXME: private
-
-    @Inject
-    RepositoryListPresenter repositoryListPresenter;
-
-    @Inject
-    RepositoryListViewModel repositoryListViewModel;
+    @Inject protected RepositoryListController repositoryListController;
+    @Inject protected RepositoryListPresenter repositoryListPresenter;
+    @Inject protected RepositoryListViewModel repositoryListViewModel;
 
     RepositoryListAdapter repositoriesAdapter;
     EndlessScrollListener endlessScrollListener;

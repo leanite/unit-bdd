@@ -12,6 +12,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestListController;
@@ -30,12 +31,12 @@ import javax.inject.Named;
 @EActivity(R.layout.activity_pullrequestlist)
 public class PullRequestListActivity extends AppCompatActivity implements PullRequestMainView {
 
-    @Inject @Named("open") PullRequestListController openPullRequestListController; //FIXME: private
-    @Inject @Named("open") PullRequestListPresenter openPullRequestListPresenter;
-    @Inject @Named("closed") PullRequestListController closedPullRequestListController; //FIXME: private
-    @Inject @Named("closed") PullRequestListPresenter closedPullRequestListPresenter;
-    @Inject PullRequestMainController pullRequestMainController;
-    @Inject PullRequestMainPresenter pullRequestMainPresenter;
+    @Inject @Named("open") protected PullRequestListController openPullRequestListController;
+    @Inject @Named("open") protected PullRequestListPresenter openPullRequestListPresenter;
+    @Inject @Named("closed") protected PullRequestListController closedPullRequestListController;
+    @Inject @Named("closed") protected PullRequestListPresenter closedPullRequestListPresenter;
+    @Inject protected PullRequestMainController pullRequestMainController;
+    @Inject protected PullRequestMainPresenter pullRequestMainPresenter;
 
     @ViewById(R.id.appBar) protected Toolbar appBar;
     @ViewById(R.id.tabViewPager) protected ViewPager tabViewPager;
@@ -70,8 +71,8 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
     }
 
     private void onSetupDone(){
-        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), "open");
-        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), "closed");
+        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.open.value());
+        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.closed.value());
     }
 
     @Override
