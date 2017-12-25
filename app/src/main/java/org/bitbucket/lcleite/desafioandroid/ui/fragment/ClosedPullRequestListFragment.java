@@ -13,13 +13,10 @@ import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.P
 
 public class ClosedPullRequestListFragment extends PullRequestListFragment {
 
-    public static ClosedPullRequestListFragment newInstance(PullRequestListPresenter presenter, PullRequestListController controller) {
+    public static ClosedPullRequestListFragment newInstance(PullRequestListPresenter presenter, PullRequestListController controller, Bundle args) {
         ClosedPullRequestListFragment fragment = new ClosedPullRequestListFragment(presenter, controller);
-
-        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -32,8 +29,8 @@ public class ClosedPullRequestListFragment extends PullRequestListFragment {
     }
 
     @Override
-    String getPullRequestState() {
-        return PullRequest.State.closed.value();
+    PullRequest.State getPullRequestState() {
+        return PullRequest.State.closed;
     }
 
     @Override

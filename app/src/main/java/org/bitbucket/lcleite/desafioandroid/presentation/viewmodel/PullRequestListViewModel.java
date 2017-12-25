@@ -14,10 +14,25 @@ public class PullRequestListViewModel {
 
     private List<PullRequest> pullRequests;
     private int currentPage;
+    private String repositoryUsername;
+    private String repositoryName;
 
     public PullRequestListViewModel() {
         pullRequests = new ArrayList<>();
         currentPage = 1;
+    }
+
+    public void setRepositoryInfo(String repositoryUsername, String repositoryName){
+        this.repositoryUsername = repositoryUsername;
+        this.repositoryName = repositoryName;
+    }
+
+    public String getRepositoryUsername() {
+        return repositoryUsername;
+    }
+
+    public String getRepositoryName() {
+        return repositoryName;
     }
 
     public List<PullRequest> getPullRequests() {

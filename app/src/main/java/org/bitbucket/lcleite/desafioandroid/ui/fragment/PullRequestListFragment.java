@@ -19,6 +19,7 @@ import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenter;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestListView;
 import org.bitbucket.lcleite.desafioandroid.presentation.viewmodel.PullRequestListViewModel;
+import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity;
 import org.bitbucket.lcleite.desafioandroid.ui.adapter.PullRequestListAdapter;
 import org.bitbucket.lcleite.desafioandroid.ui.divider.ListDivider;
 import org.bitbucket.lcleite.desafioandroid.ui.scroll.EndlessScrollListener;
@@ -39,22 +40,33 @@ public abstract class PullRequestListFragment extends Fragment implements PullRe
     public PullRequestListFragment() {}
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setupModels(getArguments());
+    }
+
+    private void setupModels(Bundle args) {
+        pullRequestListViewModel = new PullRequestListViewModel();
+
+        if (args != null)
+            setupRepositoryInfo(args);
+    }
+
+    private void setupRepositoryInfo(Bundle args){
+        String repositoryUsername = args.getString(PullRequestListActivity.REPOSITORY_USERNAME);
+        String repositoryName = args.getString(PullRequestListActivity.REPOSITORY_NAME);
+
+        pullRequestListViewModel.setRepositoryInfo(repositoryUsername, repositoryName);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pullrequestlist, container, false);
 
-        setup(view);
-
-        return view;
-    }
-
-    private void setup(View view){
-        setupModels();
         setupViews(view);
         onSetupDone();
-    }
 
-    private void setupModels() {
-        pullRequestListViewModel = new PullRequestListViewModel();
+        return view;
     }
 
     private void setupViews(View view){
@@ -126,26 +138,16 @@ public abstract class PullRequestListFragment extends Fragment implements PullRe
     }
 
     private void getPullRequests(){
+        String repositoryUsername = pullRequestListViewModel.getRepositoryUsername();
+        String repositoryName = pullRequestListViewModel.getRepositoryName();
+
         swipeRefresh.setRefreshing(true);
-        Repository repository = createMockRepository();
-        pullRequestListController.getPullRequests(repository, getPullRequestState(), pullRequestListViewModel.getCurrentPage());
+        pullRequestListController.getPullRequests(repositoryUsername,repositoryName, getPullRequestState(), pullRequestListViewModel.getCurrentPage());
     }
 
-    abstract String getPullRequestState();
+    abstract PullRequest.State getPullRequestState();
 
     abstract void setController(PullRequestListController controller);
 
     abstract void setPresenter(PullRequestListPresenter presenter);
-
-    //FIXME: remove mock
-    private Repository createMockRepository() {
-        Repository repository = new Repository();
-        User owner = new User();
-
-        owner.setUsername("elastic");
-        repository.setOwner(owner);
-        repository.setName("elasticsearch");
-
-        return repository;
-    }
 }

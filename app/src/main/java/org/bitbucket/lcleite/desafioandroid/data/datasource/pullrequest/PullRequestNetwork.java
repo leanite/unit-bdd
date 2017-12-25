@@ -4,9 +4,9 @@ import org.bitbucket.lcleite.desafioandroid.data.mapper.PullRequestDataModelMapp
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
+import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
 
 import java.util.List;
 
@@ -39,14 +39,15 @@ public class PullRequestNetwork implements PullRequestDataSource{
         pullRequestDataMapper = new PullRequestDataModelMapper();
     }
 
-    //FIXME: remove unchecked
     //TODO: improve code readability
-
     @Override
-    @SuppressWarnings("unchecked")
-    public void getPullRequests(Repository repository, String state, int pageNumber, final UseCaseCallback callback) {
+    public void getPullRequests(
+            String repositoryUsername, String repositoryName,
+            String state, int pageNumber,
+            final UseCaseCallback<List<PullRequest>, GetPullRequestsOutput.ErrorData> callback) {
+
         Call<List<PullRequestDataModel>> call =
-                service.getPullRequests(repository.getOwner().getUsername(), repository.getName(), state, pageNumber);
+                service.getPullRequests(repositoryUsername, repositoryName, state, pageNumber);
 
         call.enqueue(new Callback<List<PullRequestDataModel>>() {
             @Override

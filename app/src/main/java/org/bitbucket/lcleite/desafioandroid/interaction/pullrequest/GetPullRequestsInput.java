@@ -1,7 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.interaction.pullrequest;
 
 
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 
 /**
  * Created by leandro on 22/12/2017.
@@ -12,23 +12,32 @@ public interface GetPullRequestsInput {
     void getPullRequests(RequestData requestData);
 
     class RequestData {
-        private Repository repository;
-        private String state;
+        private String repositoryUsername;
+        private String repositoryName;
+        private PullRequest.State state;
         private int pageNumber;
 
-        public Repository getRepository() {
-            return repository;
+        public String getRepositoryUsername() {
+            return repositoryUsername;
         }
 
-        public void setRepository(Repository repository) {
-            this.repository = repository;
+        public void setRepositoryUsername(String repositoryUsername) {
+            this.repositoryUsername = repositoryUsername;
         }
 
-        public String getState() {
+        public String getRepositoryName() {
+            return repositoryName;
+        }
+
+        public void setRepositoryName(String repositoryName) {
+            this.repositoryName = repositoryName;
+        }
+
+        public PullRequest.State getState() {
             return state;
         }
 
-        public void setState(String state) {
+        public void setState(PullRequest.State state) {
             this.state = state;
         }
 

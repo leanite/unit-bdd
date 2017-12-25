@@ -2,7 +2,6 @@ package org.bitbucket.lcleite.desafioandroid.interaction.pullrequest;
 
 import org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest.PullRequestDataSource;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 
 import java.util.List;
 
@@ -21,11 +20,12 @@ public class GetPullRequestsUseCaseImpl implements GetPullRequestsUseCase {
 
     @Override
     public void getPullRequests(RequestData requestData) {
-        Repository repository = requestData.getRepository();
-        String state = requestData.getState();
+        String repositoryUsername = requestData.getRepositoryUsername();
+        String repositoryName = requestData.getRepositoryName();
+        PullRequest.State state = requestData.getState();
         int pageNumber = requestData.getPageNumber();
 
-        pullRequestDataSource.getPullRequests(repository, state, pageNumber, this);
+        pullRequestDataSource.getPullRequests(repositoryUsername, repositoryName, state.value(), pageNumber, this);
     }
 
     @Override

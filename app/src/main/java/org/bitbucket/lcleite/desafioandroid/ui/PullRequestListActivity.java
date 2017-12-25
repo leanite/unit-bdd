@@ -117,9 +117,9 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
         @Override
         public Fragment getItem(int position) {
             if(position == 0)
-                return OpenPullRequestListFragment.newInstance(openPullRequestListPresenter, openPullRequestListController);
+                return OpenPullRequestListFragment.newInstance(openPullRequestListPresenter, openPullRequestListController, intentArgs);
             else
-                return ClosedPullRequestListFragment.newInstance(closedPullRequestListPresenter, closedPullRequestListController);
+                return ClosedPullRequestListFragment.newInstance(closedPullRequestListPresenter, closedPullRequestListController, intentArgs);
         }
 
         @Override

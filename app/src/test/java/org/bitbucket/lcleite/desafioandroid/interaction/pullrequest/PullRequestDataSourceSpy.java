@@ -6,11 +6,8 @@ import org.bitbucket.lcleite.desafioandroid.data.mapper.PullRequestDataModelMapp
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
-import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
-import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesMockInterceptor;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +15,6 @@ import java.util.List;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,14 +46,12 @@ public class PullRequestDataSourceSpy implements PullRequestDataSource {
 
     @Override
     public void getPullRequests(
-            Repository repository, String state, int pageNumber,
+            String repositoryUsername, String repositoryName,
+            String state, int pageNumber,
             UseCaseCallback<List<PullRequest>, GetPullRequestsOutput.ErrorData> callback) {
 
-        String username = repository.getOwner().getUsername();
-        String repositoryName = repository.getName();
-
         Call<List<PullRequestDataModel>> call =
-                service.getPullRequests(username, repositoryName, state, pageNumber);
+                service.getPullRequests(repositoryUsername, repositoryName, state, pageNumber);
 
         try {
             Response<List<PullRequestDataModel>> response = call.execute();
