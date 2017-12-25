@@ -117,7 +117,9 @@ public abstract class PullRequestListFragment extends Fragment implements PullRe
 
     @Override
     public void onItemClick(int position) {
+        PullRequest pullRequest = pullRequestListViewModel.getPullRequestAt(position);
 
+        pullRequestListPresenter.goToPullRequestUrl(pullRequest.getUrl(), getActivity());
     }
 
     @Override

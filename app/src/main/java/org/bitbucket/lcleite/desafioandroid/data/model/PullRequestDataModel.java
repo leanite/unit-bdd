@@ -20,6 +20,9 @@ public class PullRequestDataModel extends DataModel{
     @SerializedName("body")
     private String body;
 
+    @SerializedName("html_url")
+    private String url;
+
     @SerializedName("created_at")
     private String createdAt;
 
@@ -56,6 +59,14 @@ public class PullRequestDataModel extends DataModel{
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getCreatedAt() {

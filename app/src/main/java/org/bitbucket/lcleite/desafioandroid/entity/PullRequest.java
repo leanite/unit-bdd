@@ -23,6 +23,7 @@ public class PullRequest extends Entity{
     private String title;
     private boolean open;
     private String body;
+    private String url;
     private Date createdAt;
     private boolean merged;
 
@@ -56,6 +57,14 @@ public class PullRequest extends Entity{
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Date getCreatedAt() {

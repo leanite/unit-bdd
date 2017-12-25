@@ -1,6 +1,8 @@
 package org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
@@ -14,12 +16,17 @@ import java.util.List;
 
 public class PullRequestListPresenterImpl implements PullRequestListPresenter {
     private PullRequestListView pullRequestView;
-    private Context context;
 
     @Override
     public void setView(PullRequestListView view) {
         pullRequestView = view;
-        context = ((Fragment) view).getContext();
+    }
+
+    @Override
+    public void goToPullRequestUrl(String url, Context context) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+
+        context.startActivity(intent);
     }
 
     @Override

@@ -31,6 +31,7 @@ public class PullRequestDataModelMapper implements DataModelMapper<PullRequest, 
         pullRequest.setTitle(dataModel.getTitle());
         pullRequest.setOpen(getStatusOpen(dataModel));
         pullRequest.setBody(dataModel.getBody());
+        pullRequest.setUrl(dataModel.getUrl());
         pullRequest.setCreatedAt(getCreationDate(dataModel));
         pullRequest.setMerged(getMergedStatus(dataModel));
 

@@ -43,6 +43,10 @@ public class PullRequestListViewModel {
         this.pullRequests.addAll(pullRequests);
     }
 
+    public PullRequest getPullRequestAt(int position) {
+        return pullRequests.get(position);
+    }
+
     public void clearPullRequests(){
         this.pullRequests.clear();
     }
@@ -58,4 +62,6 @@ public class PullRequestListViewModel {
     public void resetPage(){
         currentPage = 1;
     }
+
+
 }
