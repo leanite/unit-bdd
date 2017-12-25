@@ -5,6 +5,7 @@ import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsUseCase;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsUseCaseImpl;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.PullRequestDataSourceSpy;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestMainController;
 import org.junit.Before;
@@ -30,7 +31,7 @@ public class GetAmountPullRequestsTest {
         presenter = new PullRequestMainPresenterSpy();
         repository = createRepository();
         dataSource = new PullRequestDataSourceSpy(new GetAmountPullRequestsMockInterceptor());
-        useCase = new GetAmountPullRequestsUseCaseSpy(dataSource, presenter);
+        useCase = new GetAmountPullRequestsUseCaseImpl(dataSource, presenter);
         controller = new PullRequestMainController(useCase);
     }
 

@@ -43,7 +43,7 @@ public class GetPullRequestsTest {
     }
 
     private void setupUseCaseAndController(){
-        useCase = new GetPullRequestsUseCaseSpy(dataSource, presenter);
+        useCase = new GetPullRequestsUseCaseImpl(dataSource, presenter);
         controller = new PullRequestListController(useCase);
     }
 
