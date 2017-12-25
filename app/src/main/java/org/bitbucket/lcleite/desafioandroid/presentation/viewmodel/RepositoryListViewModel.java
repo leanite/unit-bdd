@@ -31,6 +31,10 @@ public class RepositoryListViewModel {
         this.repositories.clear();
     }
 
+    public Repository getRepositoryAt(int position) {
+        return repositories.get(position);
+    }
+
     public void incrementPage(){
         currentPage += 1;
     }

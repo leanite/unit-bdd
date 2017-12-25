@@ -1,5 +1,6 @@
 package org.bitbucket.lcleite.desafioandroid.ui;
 
+import android.os.Bundle;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,11 +13,10 @@ import android.util.Log;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestListController;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestMainController;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenter;
@@ -25,13 +25,15 @@ import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestMainVie
 import org.bitbucket.lcleite.desafioandroid.ui.app.App;
 import org.bitbucket.lcleite.desafioandroid.ui.fragment.ClosedPullRequestListFragment;
 import org.bitbucket.lcleite.desafioandroid.ui.fragment.OpenPullRequestListFragment;
-import org.bitbucket.lcleite.desafioandroid.ui.fragment.PullRequestListFragment;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @EActivity(R.layout.activity_pullrequestlist)
 public class PullRequestListActivity extends AppCompatActivity implements PullRequestMainView {
+    public static final String ARGS = "org.bitbucket.lcleite.PullRequestListActivity.ARGS";
+    public static final String REPOSITORY_USERNAME = "org.bitbucket.lcleite.PullRequestListActivity.REPOSITORY_USERNAME";
+    public static final String REPOSITORY_NAME = "org.bitbucket.lcleite.PullRequestListActivity.REPOSITORY_NAME";
 
     @Inject @Named("open") protected PullRequestListController openPullRequestListController;
     @Inject @Named("open") protected PullRequestListPresenter openPullRequestListPresenter;
@@ -45,6 +47,8 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
     @ViewById(R.id.tabBar) protected TabLayout tabBar;
     @ViewById(R.id.openTabItem) protected TabItem openTabTitle;
     @ViewById(R.id.closedTabItem) protected TabItem closedTabTitle;
+
+    @Extra(ARGS) Bundle intentArgs;
 
     private TabPagerAdapter tabPagerAdapter;
 
@@ -80,20 +84,11 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
     }
 
     private void onSetupDone(){
-        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.open);
-        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.closed);
-    }
+        String username = intentArgs.getString(REPOSITORY_USERNAME);
+        String name = intentArgs.getString(REPOSITORY_NAME);
 
-    //FIXME: remove mock
-    private Repository createMockRepository() {
-        Repository repository = new Repository();
-        User owner = new User();
-
-        owner.setUsername("elastic");
-        repository.setOwner(owner);
-        repository.setName("elasticsearch");
-
-        return repository;
+        pullRequestMainController.getAmountPullRequestsUseCase(username, name, PullRequest.State.open);
+        pullRequestMainController.getAmountPullRequestsUseCase(username, name, PullRequest.State.closed);
     }
 
     //FIXME: improve code

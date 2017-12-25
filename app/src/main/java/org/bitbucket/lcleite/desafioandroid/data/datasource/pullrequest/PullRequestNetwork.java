@@ -65,16 +65,21 @@ public class PullRequestNetwork implements PullRequestDataSource{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void getAmountPullRequests(Repository repository, final String state, final UseCaseCallback callback) {
+    public void getAmountPullRequests(
+            String repositoryUsername, String repositoryName,
+            final String state,
+            final UseCaseCallback<GetAmountPullRequestsOutput.ResponseData, GetAmountPullRequestsOutput.ErrorData> callback) {
+
         Call<GetAmountPullRequestsOutput.ResponseData> call =
-                service.getAmountPullRequests(createQuery(repository, state));
+                service.getAmountPullRequests(createQuery(repositoryUsername, repositoryName, state));
 
         call.enqueue(new Callback<GetAmountPullRequestsOutput.ResponseData>() {
             @Override
             public void onResponse(Call<GetAmountPullRequestsOutput.ResponseData> call, Response<GetAmountPullRequestsOutput.ResponseData> response) {
                 GetAmountPullRequestsOutput.ResponseData responseData = response.body();
-                responseData.setState(PullRequest.State.valueOf(state));
+
+                if(responseData != null)
+                    responseData.setState(PullRequest.State.valueOf(state));
 
                 callback.onSuccess(responseData);
             }
@@ -84,10 +89,7 @@ public class PullRequestNetwork implements PullRequestDataSource{
         });
     }
 
-    private String createQuery(Repository repository, String state){
-        String username = repository.getOwner().getUsername();
-        String repositoryName = repository.getName();
-
-        return "+type:pr+repo:"+ username + "/" + repositoryName + "+state:" + state;
+    private String createQuery(String repositoryUsername, String repositoryName, String state){
+        return "+type:pr+repo:"+ repositoryUsername + "/" + repositoryName + "+state:" + state;
     }
 }

@@ -25,10 +25,11 @@ public class GetAmountPullRequestsUseCaseImpl implements GetAmountPullRequestsUs
 
     @Override
     public void getAmountPullRequests(RequestData requestData) {
-        Repository repository = requestData.getRepository();
+        String repositoryUsername = requestData.getRepositoryUsername();
+        String repositoryName = requestData.getRepositoryName();
         PullRequest.State state = requestData.getState();
 
-        pullRequestDataSource.getAmountPullRequests(repository, state.value(), this);
+        pullRequestDataSource.getAmountPullRequests(repositoryUsername, repositoryName, state.value(), this);
     }
 
     @Override

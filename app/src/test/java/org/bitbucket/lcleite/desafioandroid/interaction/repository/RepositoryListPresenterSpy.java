@@ -10,7 +10,7 @@ import java.util.List;
  * Created by leandro on 22/12/2017.
  */
 
-public class RepositoryListPresenterSpy implements RepositoryListPresenter {
+public class RepositoryListPresenterSpy implements GetRepositoriesOutput {
 
     private List<Repository> repositories;
 
@@ -27,7 +27,4 @@ public class RepositoryListPresenterSpy implements RepositoryListPresenter {
     public void onGetRepositoriesError(ErrorData errorData) {
 
     }
-
-    @Override
-    public void setView(RepositoryListView view) {}
 }

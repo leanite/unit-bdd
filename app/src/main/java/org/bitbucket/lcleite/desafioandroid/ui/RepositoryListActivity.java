@@ -103,7 +103,9 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
 
     @Override
     public void onItemClick(int position) {
+        Repository repository = repositoryListViewModel.getRepositoryAt(position);
 
+        repositoryListPresenter.goToPullRequestActivity(repository);
     }
 
     @Override

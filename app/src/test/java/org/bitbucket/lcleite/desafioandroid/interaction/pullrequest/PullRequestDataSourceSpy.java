@@ -49,7 +49,10 @@ public class PullRequestDataSourceSpy implements PullRequestDataSource {
     }
 
     @Override
-    public void getPullRequests(Repository repository, String state, int pageNumber, UseCaseCallback<List<PullRequest>, GetPullRequestsOutput.ErrorData> callback) {
+    public void getPullRequests(
+            Repository repository, String state, int pageNumber,
+            UseCaseCallback<List<PullRequest>, GetPullRequestsOutput.ErrorData> callback) {
+
         String username = repository.getOwner().getUsername();
         String repositoryName = repository.getName();
 
@@ -68,9 +71,13 @@ public class PullRequestDataSourceSpy implements PullRequestDataSource {
     }
 
     @Override
-    public void getAmountPullRequests(Repository repository, String state, UseCaseCallback<GetAmountPullRequestsOutput.ResponseData, GetAmountPullRequestsOutput.ErrorData> callback) {
+    public void getAmountPullRequests(
+            String repositoryUsername, String repositoryName,
+            String state,
+            UseCaseCallback<GetAmountPullRequestsOutput.ResponseData, GetAmountPullRequestsOutput.ErrorData> callback) {
+
         Call<GetAmountPullRequestsOutput.ResponseData> call =
-                service.getAmountPullRequests(createQuery(repository, state));
+                service.getAmountPullRequests(createQuery(repositoryUsername, repositoryName, state));
 
         try {
             Response<GetAmountPullRequestsOutput.ResponseData> response = call.execute();
@@ -84,10 +91,7 @@ public class PullRequestDataSourceSpy implements PullRequestDataSource {
         }
     }
 
-    private String createQuery(Repository repository, String state){
-        String username = repository.getOwner().getUsername();
-        String repositoryName = repository.getName();
-
-        return "+type:pr+repo:"+ username + "/" + repositoryName + "+state:" + state;
+    private String createQuery(String repositoryUsername, String repositoryName, String state){
+        return "+type:pr+repo:"+ repositoryUsername + "/" + repositoryName + "+state:" + state;
     }
 }

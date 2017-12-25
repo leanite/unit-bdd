@@ -21,7 +21,8 @@ public interface PullRequestDataSource {
             UseCaseCallback<List<PullRequest>, GetPullRequestsOutput.ErrorData> callback);
 
     void getAmountPullRequests(
-            Repository repository,
+            String repositoryUsername,
+            String repositoryName,
             String state,
             UseCaseCallback<GetAmountPullRequestsOutput.ResponseData, GetAmountPullRequestsOutput.ErrorData> callback) ;
 }

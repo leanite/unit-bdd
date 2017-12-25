@@ -11,7 +11,7 @@ import java.util.List;
  * Created by leandro on 22/12/2017.
  */
 
-public class PullRequestListPresenterSpy implements PullRequestListPresenter {
+public class PullRequestListPresenterSpy implements GetPullRequestsOutput {
 
     private List<PullRequest> pullRequests;
 
@@ -28,7 +28,4 @@ public class PullRequestListPresenterSpy implements PullRequestListPresenter {
     public void onGetPullRequestsError(ErrorData errorData) {
 
     }
-
-    @Override
-    public void setView(PullRequestListView view) {}
 }

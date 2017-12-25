@@ -16,10 +16,11 @@ public class PullRequestMainController {
         this.getAmountPullRequestsUseCase = getAmountPullRequestsUseCase;
     }
 
-    public void getAmountPullRequestsUseCase(Repository repository, PullRequest.State state){
+    public void getAmountPullRequestsUseCase(String repositoryUsername, String repositoryName, PullRequest.State state){
         GetAmountPullRequestsInput.RequestData requestData = new GetAmountPullRequestsInput.RequestData();
 
-        requestData.setRepository(repository);
+        requestData.setRepositoryUsername(repositoryUsername);
+        requestData.setRepositoryName(repositoryName);
         requestData.setState(state);
 
         getAmountPullRequestsUseCase.getAmountPullRequests(requestData);
