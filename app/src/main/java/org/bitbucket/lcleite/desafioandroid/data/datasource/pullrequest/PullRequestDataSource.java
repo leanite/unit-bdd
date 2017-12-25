@@ -4,6 +4,7 @@ package org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest;
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
 
 import java.util.List;
 
@@ -23,5 +24,5 @@ public interface PullRequestDataSource {
     void getAmountPullRequests(
             Repository repository,
             String state,
-            Callback<GetAmountPullRequestsOutput.ResponseData> callback) ;
+            UseCaseCallback<GetAmountPullRequestsOutput.ResponseData, GetAmountPullRequestsOutput.ErrorData> callback) ;
 }

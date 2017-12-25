@@ -5,5 +5,6 @@ package org.bitbucket.lcleite.desafioandroid.presentation.view;
  */
 
 public interface PullRequestMainView {
-    void updateAmountPullRequests(int amountPullRequests);
+    void updateAmountOpenPullRequests(int amountPullRequests);
+    void updateAmountClosedPullRequests(int amountPullRequests);
 }

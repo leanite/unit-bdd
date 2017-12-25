@@ -3,6 +3,7 @@ package org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest;
 import android.util.Log;
 
 import org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest.PullRequestDataSource;
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 
 import retrofit2.Call;
@@ -25,21 +26,21 @@ public class GetAmountPullRequestsUseCaseImpl implements GetAmountPullRequestsUs
     @Override
     public void getAmountPullRequests(RequestData requestData) {
         Repository repository = requestData.getRepository();
-        String state = requestData.getState();
+        PullRequest.State state = requestData.getState();
 
-        pullRequestDataSource.getAmountPullRequests(repository, state, this);
+        pullRequestDataSource.getAmountPullRequests(repository, state.value(), this);
     }
 
     @Override
-    public void onResponse(Call<GetAmountPullRequestsOutput.ResponseData> call, Response<GetAmountPullRequestsOutput.ResponseData> response) {
-        int amountPullRequests = response.body().getAmountPullRequests();
+    public void onSuccess(GetAmountPullRequestsOutput.ResponseData responseData) {
+        int amountPullRequests = responseData.getAmountPullRequests();
+        PullRequest.State state = responseData.getState();
 
-        Log.d("OK", amountPullRequests+"");
-        amountPullRequestListPresenter.onGetGetAmountPullRequestssSuccess(amountPullRequests);
+        amountPullRequestListPresenter.onGetGetAmountPullRequestsSuccess(amountPullRequests, state);
     }
 
     @Override
-    public void onFailure(Call<GetAmountPullRequestsOutput.ResponseData> call, Throwable t) {
+    public void onError(GetAmountPullRequestsOutput.ErrorData errorData) {
 
     }
 }

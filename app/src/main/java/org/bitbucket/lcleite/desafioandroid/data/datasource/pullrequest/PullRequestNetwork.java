@@ -1,20 +1,17 @@
 package org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest;
 
-import android.util.Log;
-
-import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
-import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
-import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
-import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
+import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -48,11 +45,23 @@ public class PullRequestNetwork implements PullRequestDataSource{
     }
 
     @Override
-    public void getAmountPullRequests(Repository repository, String state, Callback<GetAmountPullRequestsOutput.ResponseData> callback) {
+    @SuppressWarnings("unchecked")
+    public void getAmountPullRequests(Repository repository, final String state, final UseCaseCallback callback) {
         Call<GetAmountPullRequestsOutput.ResponseData> call =
                 service.getAmountPullRequests(createQuery(repository, state));
 
-        call.enqueue(callback);
+        call.enqueue(new Callback<GetAmountPullRequestsOutput.ResponseData>() {
+            @Override
+            public void onResponse(Call<GetAmountPullRequestsOutput.ResponseData> call, Response<GetAmountPullRequestsOutput.ResponseData> response) {
+                GetAmountPullRequestsOutput.ResponseData responseData = response.body();
+                responseData.setState(PullRequest.State.valueOf(state));
+
+                callback.onSuccess(responseData);
+            }
+
+            @Override
+            public void onFailure(Call<GetAmountPullRequestsOutput.ResponseData> call, Throwable t) {}
+        });
     }
 
     private String createQuery(Repository repository, String state){

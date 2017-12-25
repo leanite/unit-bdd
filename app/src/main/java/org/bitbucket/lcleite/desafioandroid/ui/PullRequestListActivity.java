@@ -1,5 +1,6 @@
 package org.bitbucket.lcleite.desafioandroid.ui;
 
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -41,6 +43,8 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
     @ViewById(R.id.appBar) protected Toolbar appBar;
     @ViewById(R.id.tabViewPager) protected ViewPager tabViewPager;
     @ViewById(R.id.tabBar) protected TabLayout tabBar;
+    @ViewById(R.id.openTabItem) protected TabItem openTabTitle;
+    @ViewById(R.id.closedTabItem) protected TabItem closedTabTitle;
 
     private TabPagerAdapter tabPagerAdapter;
 
@@ -49,6 +53,7 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
         setupInjection();
         setupAppBar();
         setupTabBar();
+        setupPresenters();
         onSetupDone();
     }
 
@@ -70,14 +75,13 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
         tabBar.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(tabViewPager));
     }
 
-    private void onSetupDone(){
-        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.open.value());
-        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.closed.value());
+    private void setupPresenters(){
+        pullRequestMainPresenter.setView(this);
     }
 
-    @Override
-    public void updateAmountPullRequests(int amountPullRequests) {
-
+    private void onSetupDone(){
+        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.open);
+        pullRequestMainController.getAmountPullRequestsUseCase(createMockRepository(), PullRequest.State.closed);
     }
 
     //FIXME: remove mock
@@ -90,6 +94,22 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
         repository.setName("elasticsearch");
 
         return repository;
+    }
+
+    @Override
+    public void updateAmountOpenPullRequests(int amountPullRequests) {
+        String valueText = String.valueOf(amountPullRequests);
+        Log.d("OK", valueText);
+        tabBar.getTabAt(0).setText("Open: "+valueText);
+        tabPagerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateAmountClosedPullRequests(int amountPullRequests) {
+        String valueText = String.valueOf(amountPullRequests);
+        Log.d("OK", valueText);
+        tabBar.getTabAt(1).setText("Closed: "+valueText);
+        tabPagerAdapter.notifyDataSetChanged();
     }
 
     public class TabPagerAdapter extends FragmentPagerAdapter {

@@ -1,5 +1,6 @@
 package org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest;
 
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsInput;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsUseCase;
@@ -15,7 +16,7 @@ public class PullRequestMainController {
         this.getAmountPullRequestsUseCase = getAmountPullRequestsUseCase;
     }
 
-    public void getAmountPullRequestsUseCase(Repository repository, String state){
+    public void getAmountPullRequestsUseCase(Repository repository, PullRequest.State state){
         GetAmountPullRequestsInput.RequestData requestData = new GetAmountPullRequestsInput.RequestData();
 
         requestData.setRepository(repository);

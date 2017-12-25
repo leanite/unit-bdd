@@ -76,6 +76,7 @@ public class PullRequestListModule {
     }
 
     @Provides
+    @Singleton
     public PullRequestMainPresenter providePullRequestMainPresenter(){
         return new PullRequestMainPresenterImpl();
     }

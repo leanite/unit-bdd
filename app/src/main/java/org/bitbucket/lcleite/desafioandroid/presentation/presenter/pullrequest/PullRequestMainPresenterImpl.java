@@ -2,6 +2,7 @@ package org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest;
 
 import android.content.Context;
 
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestMainView;
 
 /**
@@ -19,8 +20,15 @@ public class PullRequestMainPresenterImpl implements PullRequestMainPresenter {
     }
 
     @Override
-    public void onGetGetAmountPullRequestssSuccess(int amountPullRequests) {
-        //pullRequestView.updateAmountPullRequests(amountPullRequests);
+    public void onGetGetAmountPullRequestsSuccess(int amountPullRequests, PullRequest.State state) {
+        switch (state){
+            case open:
+                pullRequestView.updateAmountOpenPullRequests(amountPullRequests);
+                break;
+            case closed:
+                pullRequestView.updateAmountClosedPullRequests(amountPullRequests);
+                break;
+        }
     }
 
     @Override

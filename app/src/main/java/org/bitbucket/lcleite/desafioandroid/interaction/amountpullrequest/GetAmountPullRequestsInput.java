@@ -1,6 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest;
 
 
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 
 /**
@@ -13,7 +14,7 @@ public interface GetAmountPullRequestsInput {
 
     class RequestData {
         private Repository repository;
-        private String state;
+        private PullRequest.State state;
 
         public Repository getRepository() {
             return repository;
@@ -23,11 +24,11 @@ public interface GetAmountPullRequestsInput {
             this.repository = repository;
         }
 
-        public String getState() {
+        public PullRequest.State getState() {
             return state;
         }
 
-        public void setState(String state) {
+        public void setState(PullRequest.State state) {
             this.state = state;
         }
     }
