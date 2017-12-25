@@ -30,7 +30,6 @@ public class GetRepositoriesMockInterceptor implements Interceptor {
         return response;
     }
 
-    //TODO: remove it from here
     private String getResponseMock(){
         return "{\n" +
                 "  \"total_count\": 4037844,\n" +

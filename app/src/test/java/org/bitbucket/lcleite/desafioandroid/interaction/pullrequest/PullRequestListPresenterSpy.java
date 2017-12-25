@@ -30,7 +30,5 @@ public class PullRequestListPresenterSpy implements PullRequestListPresenter {
     }
 
     @Override
-    public void setView(PullRequestListView view) {
-
-    }
+    public void setView(PullRequestListView view) {}
 }

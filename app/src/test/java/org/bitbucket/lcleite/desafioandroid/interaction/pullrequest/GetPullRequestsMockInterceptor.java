@@ -17,7 +17,7 @@ import okhttp3.ResponseBody;
 public abstract class GetPullRequestsMockInterceptor implements Interceptor {
 
     @Override
-    public Response intercept(Chain chain) throws IOException { //FIXME: duplicated
+    public Response intercept(Chain chain) throws IOException {
         String responseString = getResponseMock();
         Response response = new Response.Builder()
             .code(200)
