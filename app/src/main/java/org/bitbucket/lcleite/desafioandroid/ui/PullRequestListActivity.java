@@ -67,10 +67,21 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
     }
 
     private void setupAppBar() {
-        appBar.setTitle(R.string.app_name);
+        appBar.setTitle(getAppBarTitle());
         setSupportActionBar(appBar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private String getAppBarTitle() {
+        final int lengthLimit = 20;
+        final int maxLength = 15;
+        String repositoryName = intentArgs.getString(REPOSITORY_NAME);
+
+        if(repositoryName.length() >= lengthLimit)
+            repositoryName = repositoryName.substring(0, maxLength) + "...";
+
+        return repositoryName + " Pull Requests";
     }
 
     @Override
