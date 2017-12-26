@@ -7,4 +7,7 @@
     <dimen name="profile_pic">48dp</dimen>
     <dimen name="github_icon">16dp</dimen>
     <dimen name="margin_extra_content">64dp</dimen>
+
+    <dimen name="app_bar_height">240dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

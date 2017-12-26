@@ -12,5 +12,15 @@
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
+    <style name="AppBarThemeTransparent" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="collapsingTitle">
+        <item name="android:textSize">0sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>
