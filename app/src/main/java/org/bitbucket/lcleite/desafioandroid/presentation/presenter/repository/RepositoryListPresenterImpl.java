@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.RepositoryListView;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity_;
+import org.bitbucket.lcleite.desafioandroid.ui.UserDetailsActivity;
 
 import java.util.List;
 
@@ -32,6 +34,13 @@ public class RepositoryListPresenterImpl implements RepositoryListPresenter {
 
         Bundle args = getPullRequestActivityArgs(repository);
         intent.putExtra(PullRequestListActivity.ARGS, args);
+
+        context.startActivity(intent);
+    }
+
+    @Override
+    public void goToUserDetailsActivity(User user) {
+        Intent intent = new Intent(context, UserDetailsActivity.class);
 
         context.startActivity(intent);
     }

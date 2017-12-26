@@ -12,6 +12,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.repository.RepositoryListController;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.repository.RepositoryListPresenter;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.RepositoryListView;
@@ -106,6 +107,13 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
         Repository repository = repositoryListViewModel.getRepositoryAt(position);
 
         repositoryListPresenter.goToPullRequestActivity(repository);
+    }
+
+    @Override
+    public void onUserAvatarClick(int position) {
+        User user = repositoryListViewModel.getRepositoryAt(position).getOwner();
+
+        repositoryListPresenter.goToUserDetailsActivity(user);
     }
 
     @Override

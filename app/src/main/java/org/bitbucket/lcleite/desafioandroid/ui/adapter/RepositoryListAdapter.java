@@ -1,6 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,7 @@ public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAd
 
             itemView.setOnClickListener(this);
             ivUserProfile = itemView.findViewById(R.id.ivUserProfile);
+            ivUserProfile.setOnClickListener(this);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvText);
             tvStars = itemView.findViewById(R.id.tvCreatedAt);
@@ -98,11 +100,18 @@ public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAd
 
         @Override
         public void onClick(View view) {
-            onItemClickListener.onItemClick(getAdapterPosition());
+            switch (view.getId()){
+                case R.id.ivUserProfile:
+                    onItemClickListener.onUserAvatarClick(getAdapterPosition());
+                    break;
+                default:
+                    onItemClickListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 
     public interface OnItemClickListener{
         void onItemClick(int position);
+        void onUserAvatarClick(int position);
     }
 }

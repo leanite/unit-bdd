@@ -145,4 +145,9 @@ public class UserDetailsActivity extends AppCompatActivity implements Repository
     public void onItemClick(int position) {
 
     }
+
+    @Override
+    public void onUserAvatarClick(int position) {
+
+    }
 }
