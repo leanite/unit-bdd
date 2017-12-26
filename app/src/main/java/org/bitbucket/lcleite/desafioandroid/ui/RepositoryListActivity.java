@@ -25,7 +25,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-@EActivity(R.layout.activity_repositorylist)
+@EActivity(R.layout.activity_repository_list)
 public class RepositoryListActivity extends AppCompatActivity implements RepositoryListView {
 
     @ViewById(R.id.appBar) protected Toolbar appBar;
