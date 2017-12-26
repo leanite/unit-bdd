@@ -1,8 +1,6 @@
 package org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest;
 
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsUseCase;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsInput;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsUseCase;
 

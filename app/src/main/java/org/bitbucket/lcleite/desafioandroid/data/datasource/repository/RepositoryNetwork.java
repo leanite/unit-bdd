@@ -4,7 +4,7 @@ import org.bitbucket.lcleite.desafioandroid.data.mapper.RepositoryDataModelMappe
 import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
+import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
 
 import java.util.List;

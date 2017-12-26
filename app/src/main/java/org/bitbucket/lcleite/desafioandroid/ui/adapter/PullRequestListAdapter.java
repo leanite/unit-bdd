@@ -11,7 +11,6 @@ import com.squareup.picasso.Picasso;
 
 import org.bitbucket.lcleite.desafioandroid.R;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.utils.DateUtils;
 
 import java.util.Date;
@@ -92,8 +91,6 @@ public class PullRequestListAdapter extends RecyclerView.Adapter<PullRequestList
         public TextView tvBody;
         public TextView tvCreatedAt;
         public TextView tvMergedAt;
-
-
 
         public ViewHolder(View itemView) {
             super(itemView);

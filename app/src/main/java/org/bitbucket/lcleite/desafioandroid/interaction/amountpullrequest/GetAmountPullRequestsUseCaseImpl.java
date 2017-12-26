@@ -1,13 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest;
 
-import android.util.Log;
-
 import org.bitbucket.lcleite.desafioandroid.data.datasource.pullrequest.PullRequestDataSource;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * Created by leandro on 24/12/2017.

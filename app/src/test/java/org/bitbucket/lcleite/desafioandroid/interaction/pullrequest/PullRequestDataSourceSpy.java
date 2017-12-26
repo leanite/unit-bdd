@@ -7,7 +7,7 @@ import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
-import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
+import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 
 import java.io.IOException;
 import java.util.List;

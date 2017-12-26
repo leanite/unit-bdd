@@ -36,6 +36,9 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
     public static final String REPOSITORY_USERNAME = "org.bitbucket.lcleite.PullRequestListActivity.REPOSITORY_USERNAME";
     public static final String REPOSITORY_NAME = "org.bitbucket.lcleite.PullRequestListActivity.REPOSITORY_NAME";
 
+    private static final int OPEN_TAB = 0;
+    private static final int CLOSED_TAB = 1;
+
     @Inject @Named("open") protected PullRequestListController openPullRequestListController;
     @Inject @Named("open") protected PullRequestListPresenter openPullRequestListPresenter;
     @Inject @Named("closed") protected PullRequestListController closedPullRequestListController;
@@ -115,20 +118,22 @@ public class PullRequestListActivity extends AppCompatActivity implements PullRe
         pullRequestMainController.getAmountPullRequestsUseCase(username, name, PullRequest.State.closed);
     }
 
-    //FIXME: improve code
     @Override
     public void updateAmountOpenPullRequests(int amountPullRequests) {
         String valueText = String.valueOf(amountPullRequests);
-        Log.d("OK", valueText);
-        tabBar.getTabAt(0).setText("Open: "+valueText);
-        tabPagerAdapter.notifyDataSetChanged();
+
+        updateTabTitle(OPEN_TAB, "Open: "+valueText);
     }
 
     @Override
     public void updateAmountClosedPullRequests(int amountPullRequests) {
         String valueText = String.valueOf(amountPullRequests);
-        Log.d("OK", valueText);
-        tabBar.getTabAt(1).setText("Closed: "+valueText);
+
+        updateTabTitle(CLOSED_TAB, "Closed: "+valueText);
+    }
+
+    private void updateTabTitle(int position, String newTitle){
+        tabBar.getTabAt(position).setText(newTitle);
         tabPagerAdapter.notifyDataSetChanged();
     }
 

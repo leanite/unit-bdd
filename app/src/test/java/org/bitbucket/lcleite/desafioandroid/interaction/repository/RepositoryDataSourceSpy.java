@@ -5,14 +5,13 @@ import org.bitbucket.lcleite.desafioandroid.data.mapper.RepositoryDataModelMappe
 import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
+import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 
 import java.io.IOException;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

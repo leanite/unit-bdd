@@ -3,7 +3,6 @@ package org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
 
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestListView;

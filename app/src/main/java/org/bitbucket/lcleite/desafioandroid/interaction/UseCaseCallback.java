@@ -1,4 +1,4 @@
-package org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest;
+package org.bitbucket.lcleite.desafioandroid.interaction;
 
 /**
  * Created by leandro on 25/12/2017.

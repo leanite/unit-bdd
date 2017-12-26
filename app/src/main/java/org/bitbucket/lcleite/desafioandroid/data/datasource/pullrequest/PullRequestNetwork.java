@@ -5,7 +5,7 @@ import org.bitbucket.lcleite.desafioandroid.data.model.PullRequestDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
-import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
+import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
 
 import java.util.List;
@@ -29,7 +29,6 @@ public class PullRequestNetwork implements PullRequestDataSource{
         pullRequestDataMapper = new PullRequestDataModelMapper();
     }
 
-    //TODO: improve code readability
     @Override
     public void getPullRequests(
             String repositoryUsername, String repositoryName,

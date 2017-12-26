@@ -39,12 +39,14 @@ public class EndlessScrollListener extends RecyclerView.OnScrollListener {
     }
 
     private void decideIfCanStopLoading() {
-        if (loading) {
-            if (totalItemCount > previousTotal) {
-                loading = false;
-                previousTotal = totalItemCount;
-            }
+        if (shouldStopLoading()) {
+            loading = false;
+            previousTotal = totalItemCount;
         }
+    }
+
+    private boolean shouldStopLoading() {
+        return loading && totalItemCount > previousTotal;
     }
 
     private void decideIfCanLoadMoreItems() {

@@ -1,7 +1,7 @@
 package org.bitbucket.lcleite.desafioandroid.interaction.repository;
 
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
-import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.UseCaseCallback;
+import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 
 import java.util.List;
 
