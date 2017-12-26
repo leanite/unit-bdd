@@ -1,4 +1,4 @@
-package org.bitbucket.lcleite.desafioandroid;
+package org.bitbucket.lcleite.desafioandroid.resource;
 
 import android.support.test.espresso.IdlingResource;
 

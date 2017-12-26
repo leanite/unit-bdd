@@ -14,6 +14,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
+import org.bitbucket.lcleite.desafioandroid.resource.ElapsedTimeIdlingResource;
+import org.bitbucket.lcleite.desafioandroid.resource.IntentServiceIdlingResource;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity_;
 import org.bitbucket.lcleite.desafioandroid.ui.RepositoryListActivity_;
 import org.junit.After;

@@ -16,19 +16,23 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
+import org.bitbucket.lcleite.desafioandroid.resource.ElapsedTimeIdlingResource;
+import org.bitbucket.lcleite.desafioandroid.resource.IntentServiceIdlingResource;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity_;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -41,6 +45,7 @@ import static org.hamcrest.Matchers.greaterThan;
  */
 
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PullRequestListActivityTest {
     @Rule
     public ActivityTestRule<PullRequestListActivity_> activityTestRule =
@@ -80,33 +85,26 @@ public class PullRequestListActivityTest {
     }
 
     @Test
-    public void itShould_openPullRequestUrl(){
-        Intents.init();
-
-        onView(withId(R.id.tabViewPager)).perform(swipeLeft());
-        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
-                .check(matches(isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-
-        intended(hasAction(Intent.ACTION_VIEW));
-
-        Intents.release();
-    }
-
-    @Test
     public void itShould_loadMoreItemsIfBottomListIsReached(){
         onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
-                .perform(swipeLeft())
+                .perform(swipeLeft());
+
+        IdlingResource idlingResourceSwipe = new ElapsedTimeIdlingResource(500);
+        IdlingResource idlingResourceLoading = new ElapsedTimeIdlingResource(2000);
+
+        Espresso.registerIdlingResources(idlingResourceSwipe);
+
+        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
                 .perform(RecyclerViewActions.scrollToPosition(29));
 
-        IdlingResource idlingResource = new ElapsedTimeIdlingResource(1000);
-        Espresso.registerIdlingResources(idlingResource);
+
+        Espresso.registerIdlingResources(idlingResourceLoading);
 
         onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
                 .check(new RecyclerViewSizeAssertion(greaterThan(30)))
                 .perform(RecyclerViewActions.scrollToPosition(35));
 
-        Espresso.unregisterIdlingResources(idlingResource);
+        Espresso.unregisterIdlingResources(idlingResourceSwipe, idlingResourceLoading);
     }
 
     @Test
@@ -127,5 +125,25 @@ public class PullRequestListActivityTest {
             return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         else
             return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
+
+    @Test
+    public void itShould_zopenPullRequestUrl(){
+        Intents.init();
+
+        onView(withId(R.id.tabViewPager)).perform(swipeLeft());
+
+        IdlingResource idlingResource = new ElapsedTimeIdlingResource(500);
+        Espresso.registerIdlingResources(idlingResource);
+
+        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
+                .check(matches(isDisplayed()))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+
+        Espresso.unregisterIdlingResources(idlingResource);
+
+        intending(hasAction(Intent.ACTION_VIEW));
+
+        Intents.release();
     }
 }

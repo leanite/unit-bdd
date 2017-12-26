@@ -1,10 +1,8 @@
-package org.bitbucket.lcleite.desafioandroid;
+package org.bitbucket.lcleite.desafioandroid.resource;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.support.test.espresso.IdlingResource;
-
-import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryNetwork;
 
 /**
  * Created by leandro on 26/12/2017.
