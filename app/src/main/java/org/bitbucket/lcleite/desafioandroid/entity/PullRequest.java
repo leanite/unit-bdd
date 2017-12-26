@@ -25,7 +25,7 @@ public class PullRequest extends Entity{
     private String body;
     private String url;
     private Date createdAt;
-    private boolean merged;
+    private Date mergedAt;
 
     public User getCreator() {
         return creator;
@@ -75,12 +75,12 @@ public class PullRequest extends Entity{
         this.createdAt = createdAt;
     }
 
-    public boolean isMerged() {
-        return merged;
+    public Date getMergedAt() {
+        return mergedAt;
     }
 
-    public void setMerged(boolean merged) {
-        this.merged = merged;
+    public void setMergedAt(Date mergedAt) {
+        this.mergedAt = mergedAt;
     }
 
     @Override
@@ -90,10 +90,10 @@ public class PullRequest extends Entity{
 
         PullRequest pullRequest = (PullRequest) other;
         return open == pullRequest.open &&
-                merged == pullRequest.merged &&
                 Objects.equals(creator, pullRequest.creator) &&
                 Objects.equals(title, pullRequest.title) &&
                 Objects.equals(body, pullRequest.body) &&
-                Objects.equals(createdAt, pullRequest.createdAt);
+                Objects.equals(createdAt, pullRequest.createdAt) &&
+                Objects.equals(mergedAt, pullRequest.mergedAt);
     }
 }

@@ -32,8 +32,8 @@ public class PullRequestDataModelMapper implements DataModelMapper<PullRequest, 
         pullRequest.setOpen(getStatusOpen(dataModel));
         pullRequest.setBody(dataModel.getBody());
         pullRequest.setUrl(dataModel.getUrl());
-        pullRequest.setCreatedAt(getCreationDate(dataModel));
-        pullRequest.setMerged(getMergedStatus(dataModel));
+        pullRequest.setCreatedAt(getDate(dataModel.getCreatedAt()));
+        pullRequest.setMergedAt(getDate(dataModel.getMergedAt()));
 
         return pullRequest;
     }
@@ -42,12 +42,11 @@ public class PullRequestDataModelMapper implements DataModelMapper<PullRequest, 
         return dataModel.getState().equals(PullRequest.State.open.value());
     }
 
-    private Date getCreationDate(PullRequestDataModel dataModel) {
-        return DateUtils.createDateFromString(dataModel.getCreatedAt());
-    }
-
-    private boolean getMergedStatus(PullRequestDataModel dataModel) {
-        return dataModel.getMergedAt() != null;
+    private Date getDate(String dateString) {
+        if(dateString != null)
+            return DateUtils.createDateFromString(dateString);
+        else
+            return null;
     }
 
     @Override
