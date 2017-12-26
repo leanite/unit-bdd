@@ -21,7 +21,7 @@
             android:name=".ui.PullRequestListActivity_"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".ui.UserProfileActivity"
+            android:name=".ui.UserDetailsActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

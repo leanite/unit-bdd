@@ -17,7 +17,7 @@ import org.bitbucket.lcleite.desafioandroid.ui.divider.ListDivider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserProfileActivity extends AppCompatActivity implements RepositoryListAdapter.OnItemClickListener {
+public class UserDetailsActivity extends AppCompatActivity implements RepositoryListAdapter.OnItemClickListener {
 
     /*@ViewById(R.id.rvRepositoryList) */protected RecyclerView repositoriesRecyclerView;
     RepositoryListAdapter repositoriesAdapter;
@@ -25,7 +25,7 @@ public class UserProfileActivity extends AppCompatActivity implements Repository
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_user_details);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
 
@@ -46,9 +46,9 @@ public class UserProfileActivity extends AppCompatActivity implements Repository
                 }
                 //Check if the view is collapsed
                 if (scrollRange + verticalOffset == 0) {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(UserProfileActivity.this, R.color.colorPrimary));
+                    toolbar.setBackgroundColor(ContextCompat.getColor(UserDetailsActivity.this, R.color.colorPrimary));
                 }else{
-                    toolbar.setBackgroundColor(ContextCompat.getColor(UserProfileActivity.this, android.R.color.transparent));
+                    toolbar.setBackgroundColor(ContextCompat.getColor(UserDetailsActivity.this, android.R.color.transparent));
                 }
             }
         });
