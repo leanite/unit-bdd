@@ -8,7 +8,6 @@ import android.view.View;
 import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
-import static org.hamcrest.Matchers.is;
 
 /**
  * Created by leandro on 26/12/2017.
@@ -17,10 +16,6 @@ import static org.hamcrest.Matchers.is;
 public class RecyclerViewSizeAssertion implements ViewAssertion {
 
     private final Matcher<Integer> matcher;
-
-    public RecyclerViewSizeAssertion(int expectedCount) {
-        this.matcher = is(expectedCount);
-    }
 
     public RecyclerViewSizeAssertion(Matcher<Integer> matcher) {
         this.matcher = matcher;

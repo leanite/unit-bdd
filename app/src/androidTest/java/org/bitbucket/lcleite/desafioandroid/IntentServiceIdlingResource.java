@@ -13,9 +13,11 @@ import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.Repositor
 public class IntentServiceIdlingResource implements IdlingResource {
     private final Context context;
     private ResourceCallback resourceCallback;
+    private String serviceClassName;
 
-    public IntentServiceIdlingResource(Context context) {
+    public IntentServiceIdlingResource(Class serviceClass, Context context) {
         this.context = context;
+        this.serviceClassName = serviceClass.getName();
     }
 
     @Override
@@ -40,7 +42,7 @@ public class IntentServiceIdlingResource implements IdlingResource {
     private boolean isIntentServiceRunning() {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo info : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (RepositoryNetwork.class.getName().equals(info.service.getClassName())) {
+            if (serviceClassName.equals(info.service.getClassName())) {
                 return true;
             }
         }

@@ -3,8 +3,10 @@ package org.bitbucket.lcleite.desafioandroid;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
@@ -13,9 +15,9 @@ import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
+import org.bitbucket.lcleite.desafioandroid.data.service.PullRequestRetrofitService;
+import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity_;
-import org.bitbucket.lcleite.desafioandroid.ui.RepositoryListActivity_;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,13 +25,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.greaterThan;
 
 /**
@@ -37,17 +41,30 @@ import static org.hamcrest.Matchers.greaterThan;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class RepositoryListActivityTest {
+public class PullRequestListActivityTest {
     @Rule
-    public ActivityTestRule<RepositoryListActivity_> activityTestRule =
-            new ActivityTestRule<>(RepositoryListActivity_.class);
+    public ActivityTestRule<PullRequestListActivity_> activityTestRule =
+            new ActivityTestRule<PullRequestListActivity_>(PullRequestListActivity_.class){
+                @Override
+                protected Intent getActivityIntent() {
+                    Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+                    Intent intent = new Intent(targetContext, PullRequestListActivity_.class);
+                    Bundle args = new Bundle();
+
+                    args.putString(PullRequestListActivity.REPOSITORY_USERNAME, "elastic");
+                    args.putString(PullRequestListActivity.REPOSITORY_NAME, "elasticsearch");
+                    intent.putExtra(PullRequestListActivity.ARGS, args);
+
+                    return intent;
+                }
+            };
 
     private IntentServiceIdlingResource idlingResource;
 
     @Before
     public void registerIntentServiceIdlingResource() {
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        idlingResource = new IntentServiceIdlingResource(RepositoryRetrofitService.class, instrumentation.getTargetContext());
+        idlingResource = new IntentServiceIdlingResource(PullRequestRetrofitService.class, instrumentation.getTargetContext());
         Espresso.registerIdlingResources(idlingResource);
     }
 
@@ -57,33 +74,35 @@ public class RepositoryListActivityTest {
     }
 
     @Test
-    public void itShould_loadRepositories(){
-        onView(withId(R.id.rvRepositoryList))
+    public void itShould_loadPullRequests(){
+        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
                 .check(matches(hasMinimumChildCount(1)));
     }
 
     @Test
-    public void itShould_goToPullRequestActivity(){
+    public void itShould_openPullRequestUrl(){
         Intents.init();
 
-        onView(withId(R.id.rvRepositoryList))
+        onView(withId(R.id.tabViewPager)).perform(swipeLeft());
+        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
                 .check(matches(isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
-        intended(hasComponent(PullRequestListActivity_.class.getName()));
+        intended(hasAction(Intent.ACTION_VIEW));
 
         Intents.release();
     }
 
     @Test
     public void itShould_loadMoreItemsIfBottomListIsReached(){
-        onView(withId(R.id.rvRepositoryList))
+        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
+                .perform(swipeLeft())
                 .perform(RecyclerViewActions.scrollToPosition(29));
 
         IdlingResource idlingResource = new ElapsedTimeIdlingResource(1000);
         Espresso.registerIdlingResources(idlingResource);
 
-        onView(withId(R.id.rvRepositoryList))
+        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
                 .check(new RecyclerViewSizeAssertion(greaterThan(30)))
                 .perform(RecyclerViewActions.scrollToPosition(35));
 
@@ -97,7 +116,7 @@ public class RepositoryListActivityTest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
         activity.setRequestedOrientation(changeActivityOrientation(activity));
 
-        onView(withId(R.id.rvRepositoryList))
+        onView(allOf(withId(R.id.rvPullRequestList), isDisplayed()))
                 .check(new RecyclerViewSizeAssertion(greaterThan(1)));
     }
 
