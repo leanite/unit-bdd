@@ -13,7 +13,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by leandro on 22/12/2017.
@@ -21,18 +20,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RepositoryNetwork implements RepositoryDataSource{
 
-    //FIXME: Dependency Injection
-    private Retrofit retrofit;
     private RepositoryRetrofitService service;
     private RepositoryDataModelMapper repositoryDataMapper;
 
-    public RepositoryNetwork() {
-        //TODO: Add Cache
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
+    public RepositoryNetwork(Retrofit retrofit) {
         service = retrofit.create(RepositoryRetrofitService.class);
         repositoryDataMapper = new RepositoryDataModelMapper();
     }

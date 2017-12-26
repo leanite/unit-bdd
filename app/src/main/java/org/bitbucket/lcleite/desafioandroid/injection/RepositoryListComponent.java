@@ -11,7 +11,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, RepositoryListModule.class})
+@Component(modules = {ApplicationModule.class, RetrofitModule.class, RepositoryListModule.class})
 public interface RepositoryListComponent {
     void inject(RepositoryListActivity target);
 }

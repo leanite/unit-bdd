@@ -20,6 +20,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
 
 /**
  * Created by leandro on 23/12/2017.
@@ -42,8 +43,8 @@ public class PullRequestListModule {
     }
 
     @Provides
-    public PullRequestDataSource providePullRequestDataSource(){
-        return new PullRequestNetwork();
+    public PullRequestDataSource providePullRequestDataSource(Retrofit retrofit){
+        return new PullRequestNetwork(retrofit);
     }
 
     @Provides

@@ -59,7 +59,7 @@ public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAd
         Picasso.with(ivUserProfile.getContext())
                 .load(url)
                 .placeholder(R.drawable.downloading_placeholder)
-//                .error(R.drawable.error) FIXME: add error image
+                .error(R.drawable.downloading_error)
                 .resizeDimen(R.dimen.profile_pic, R.dimen.profile_pic)
                 .transform(new CropCircleTransformation())
                 .into(ivUserProfile);

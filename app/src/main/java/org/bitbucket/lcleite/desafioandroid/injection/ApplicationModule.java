@@ -23,7 +23,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public Context provideContext(){
+    Application providesApplication() {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    public Context provideContext(){
+        return application.getBaseContext();
     }
 }

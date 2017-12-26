@@ -9,6 +9,7 @@ import org.bitbucket.lcleite.desafioandroid.injection.PullRequestListComponent;
 import org.bitbucket.lcleite.desafioandroid.injection.PullRequestListModule;
 import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListComponent;
 import org.bitbucket.lcleite.desafioandroid.injection.RepositoryListModule;
+import org.bitbucket.lcleite.desafioandroid.injection.RetrofitModule;
 
 /**
  * Created by leandro on 23/12/2017.
@@ -25,11 +26,13 @@ public class App extends Application {
 
         repositoryListComponent = DaggerRepositoryListComponent.builder()
                 .applicationModule(new ApplicationModule(this))
+                .retrofitModule(new RetrofitModule())
                 .repositoryListModule(new RepositoryListModule())
                 .build();
 
         pullRequestListComponent = DaggerPullRequestListComponent.builder()
                 .applicationModule(new ApplicationModule(this))
+                .retrofitModule(new RetrofitModule())
                 .pullRequestListModule(new PullRequestListModule())
                 .build();
     }

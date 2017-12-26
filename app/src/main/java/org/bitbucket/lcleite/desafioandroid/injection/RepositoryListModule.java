@@ -1,7 +1,5 @@
 package org.bitbucket.lcleite.desafioandroid.injection;
 
-import android.content.Context;
-
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryNetwork;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesUseCase;
@@ -15,6 +13,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
 
 /**
  * Created by leandro on 23/12/2017.
@@ -29,8 +28,8 @@ public class RepositoryListModule {
     }
 
     @Provides
-    public RepositoryDataSource provideRepositoryDataSource(){
-        return new RepositoryNetwork();
+    public RepositoryDataSource provideRepositoryDataSource(Retrofit retrofit){
+        return new RepositoryNetwork(retrofit);
     }
 
     @Provides

@@ -12,7 +12,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, PullRequestListModule.class})
+@Component(modules = {ApplicationModule.class, RetrofitModule.class, PullRequestListModule.class})
 public interface PullRequestListComponent {
     void inject(PullRequestListActivity target);
 }

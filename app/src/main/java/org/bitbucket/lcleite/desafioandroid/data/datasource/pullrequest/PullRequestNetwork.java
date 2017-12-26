@@ -14,7 +14,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by leandro on 22/12/2017.
@@ -22,19 +21,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PullRequestNetwork implements PullRequestDataSource{
 
-
-    //FIXME: Dependency Injection
-    private Retrofit retrofit;
     private PullRequestRetrofitService service;
     private PullRequestDataModelMapper pullRequestDataMapper;
 
-    public PullRequestNetwork() {
-        //TODO: Add Cache
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
+    public PullRequestNetwork(Retrofit retrofit) {
         service = retrofit.create(PullRequestRetrofitService.class);
         pullRequestDataMapper = new PullRequestDataModelMapper();
     }

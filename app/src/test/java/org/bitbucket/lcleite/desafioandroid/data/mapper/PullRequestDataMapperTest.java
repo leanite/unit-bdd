@@ -67,7 +67,7 @@ public class PullRequestDataMapperTest {
         pullRequest.setOpen(true);
         pullRequest.setBody("Pull Request body");
         pullRequest.setCreatedAt(DateUtils.createDateFromString("2013-01-08T20:11:48Z"));
-        pullRequest.setMerged(false);
+        pullRequest.setMergedAt(null);
 
         return pullRequest;
     }
