@@ -11,7 +11,7 @@ public class UserDataModel extends DataModel{
     @SerializedName("login")
     private String username;
 
-    @SerializedName("name") //FIXME: https://api.github.com/users/ReactiveX  //https://api.github.com/users/ReactiveX/repos?page=1
+    @SerializedName("name") //FIXME: https://api.github.com/  //https://api.github.com/users/ReactiveX/repos?page=1
     private String name;
 
     @SerializedName("avatar_url")
