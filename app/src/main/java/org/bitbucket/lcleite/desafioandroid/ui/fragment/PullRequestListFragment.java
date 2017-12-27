@@ -61,7 +61,7 @@ public abstract class PullRequestListFragment extends Fragment implements PullRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pullrequestlist, container, false);
+        View view = inflater.inflate(R.layout.fragment_pull_request_list, container, false);
 
         setupViews(view);
         onSetupDone();

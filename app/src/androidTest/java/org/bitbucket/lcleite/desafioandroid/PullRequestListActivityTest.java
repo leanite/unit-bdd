@@ -121,7 +121,7 @@ public class PullRequestListActivityTest {
     }
 
     @Test
-    public void itShould_openPullRequestUrl(){
+    public void itShould_zopenPullRequestUrl(){
         Intents.init();
 
         onView(withId(R.id.tabViewPager)).perform(swipeLeft());

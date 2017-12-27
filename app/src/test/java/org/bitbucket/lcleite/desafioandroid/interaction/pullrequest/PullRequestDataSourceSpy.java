@@ -30,7 +30,7 @@ public class PullRequestDataSourceSpy implements PullRequestDataSource {
     private PullRequestDataModelMapper pullRequestDataMapper;
 
     public PullRequestDataSourceSpy(Interceptor interceptor) {
-        OkHttpClient client = new OkHttpClient.Builder() //FIXME: duplicated code
+        OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build();
 

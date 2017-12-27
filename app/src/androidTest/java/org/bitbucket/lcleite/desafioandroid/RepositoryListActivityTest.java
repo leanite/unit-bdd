@@ -63,6 +63,7 @@ public class RepositoryListActivityTest {
 
     @Test
     public void itShould_loadRepositories(){
+        onView(isRoot()).perform(waitFor(1000));
         onView(withId(R.id.rvRepositoryList))
                 .check(matches(hasMinimumChildCount(1)));
     }
@@ -71,6 +72,7 @@ public class RepositoryListActivityTest {
     public void itShould_goToPullRequestActivity(){
         Intents.init();
 
+        onView(isRoot()).perform(waitFor(1000));
         onView(withId(R.id.rvRepositoryList))
                 .check(matches(isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
@@ -82,6 +84,7 @@ public class RepositoryListActivityTest {
 
     @Test
     public void itShould_loadMoreItemsIfBottomListIsReached(){
+        onView(isRoot()).perform(waitFor(1000));
         onView(withId(R.id.rvRepositoryList))
                 .perform(RecyclerViewActions.scrollToPosition(29));
 
@@ -95,6 +98,7 @@ public class RepositoryListActivityTest {
     public void itShould_goToUserDetailsActivity(){
         Intents.init();
 
+        onView(isRoot()).perform(waitFor(1000));
         onView(withIndex(withId(R.id.ivUserProfile), 0))
                 .perform(click());
 
