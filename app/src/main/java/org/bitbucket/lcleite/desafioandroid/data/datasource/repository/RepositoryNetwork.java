@@ -6,6 +6,7 @@ import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitServi
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
+import org.bitbucket.lcleite.desafioandroid.interaction.userrepository.GetUserRepositoriesOutput;
 
 import java.util.List;
 
@@ -49,5 +50,29 @@ public class RepositoryNetwork implements RepositoryDataSource{
 
             }
         });
+    }
+
+    @Override
+    public void getUserRepositoriesAtPageNumber(
+            String username, int pageNumber,
+            final UseCaseCallback<List<Repository>, GetUserRepositoriesOutput.ErrorData> callback) {
+
+        Call<List<RepositoryDataModel>> call = service.getUserRepositoriesAtPageNumber(username, pageNumber);
+
+        call.enqueue(new Callback<List<RepositoryDataModel>>() {
+            @Override
+            public void onResponse(Call<List<RepositoryDataModel>> call, Response<List<RepositoryDataModel>> response) {
+                List<RepositoryDataModel> repositoriesData = response.body();
+                List<Repository> repositories = repositoryDataMapper.toEntityList(repositoriesData);
+
+                callback.onSuccess(repositories);
+            }
+
+            @Override
+            public void onFailure(Call<List<RepositoryDataModel>> call, Throwable t) {
+
+            }
+        });
+
     }
 }
