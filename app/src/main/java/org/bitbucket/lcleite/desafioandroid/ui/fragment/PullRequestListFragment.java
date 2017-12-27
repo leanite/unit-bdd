@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import org.bitbucket.lcleite.desafioandroid.R;
 import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
+import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.pullrequest.PullRequestListController;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest.PullRequestListPresenter;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestListView;
@@ -118,6 +119,13 @@ public abstract class PullRequestListFragment extends Fragment implements PullRe
         PullRequest pullRequest = pullRequestListViewModel.getPullRequestAt(position);
 
         pullRequestListPresenter.goToPullRequestUrl(pullRequest.getUrl(), getActivity());
+    }
+
+    @Override
+    public void onUserAvatarClick(int position) {
+        User user = pullRequestListViewModel.getPullRequestAt(position).getCreator();
+
+        pullRequestListPresenter.goToUserDetailsActivity(user, getActivity());
     }
 
     @Override

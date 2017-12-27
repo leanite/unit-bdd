@@ -97,6 +97,7 @@ public class PullRequestListAdapter extends RecyclerView.Adapter<PullRequestList
 
             itemView.setOnClickListener(this);
             ivUserProfile = itemView.findViewById(R.id.ivUserProfile);
+            ivUserProfile.setOnClickListener(this);
             ivMerged = itemView.findViewById(R.id.ivMerged);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvBody = itemView.findViewById(R.id.tvText);
@@ -106,11 +107,18 @@ public class PullRequestListAdapter extends RecyclerView.Adapter<PullRequestList
 
         @Override
         public void onClick(View view) {
-            onItemClickListener.onItemClick(getAdapterPosition());
+            switch (view.getId()){
+                case R.id.ivUserProfile:
+                    onItemClickListener.onUserAvatarClick(getAdapterPosition());
+                    break;
+                default:
+                    onItemClickListener.onItemClick(getAdapterPosition());
+            }
         }
     }
 
     public interface OnItemClickListener{
         void onItemClick(int position);
+        void onUserAvatarClick(int position);
     }
 }

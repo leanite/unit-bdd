@@ -2,6 +2,7 @@ package org.bitbucket.lcleite.desafioandroid.presentation.presenter.pullrequest;
 
 import android.content.Context;
 
+import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestListView;
 
@@ -12,4 +13,5 @@ import org.bitbucket.lcleite.desafioandroid.presentation.view.PullRequestListVie
 public interface PullRequestListPresenter extends GetPullRequestsOutput {
     void setView(PullRequestListView view);
     void goToPullRequestUrl(String url, Context context);
+    void goToUserDetailsActivity(User user, Context context);
 }
