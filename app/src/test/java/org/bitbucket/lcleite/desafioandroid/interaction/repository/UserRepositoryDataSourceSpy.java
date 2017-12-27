@@ -18,18 +18,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by leandro on 22/12/2017.
+ * Created by leandro on 26/12/2017.
  */
 
-public class RepositoryDataSourceSpy implements RepositoryDataSource {
+public class UserRepositoryDataSourceSpy implements RepositoryDataSource {
 
     private Retrofit retrofit;
     private RepositoryRetrofitService service;
     private RepositoryDataModelMapper repositoryDataMapper;
 
-    public RepositoryDataSourceSpy() {
+    public UserRepositoryDataSourceSpy() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new GetRepositoriesMockInterceptor())
+                .addInterceptor(new GetUserRepositoriesMockInterceptor())
                 .build();
 
         retrofit = new Retrofit.Builder()
@@ -45,13 +45,18 @@ public class RepositoryDataSourceSpy implements RepositoryDataSource {
     @Override
     public void getRepositoriesAtPageNumber(
             int pageNumber,
-            UseCaseCallback<List<Repository>, GetRepositoriesOutput.ErrorData> callback) {
+            UseCaseCallback<List<Repository>, GetRepositoriesOutput.ErrorData> callback) {}
 
-        Call<GetRepositoriesOutput.ResponseData> call = service.getRepositoriesAtPageNumber(pageNumber);
+    @Override
+    public void getUserRepositoriesAtPageNumber(
+            String username, int pageNumber,
+            UseCaseCallback<List<Repository>, GetUserRepositoriesOutput.ErrorData> callback) {
+
+        Call<List<RepositoryDataModel>> call = service.getUserRepositoriesAtPageNumber(username, pageNumber);
 
         try {
-            Response <GetRepositoriesOutput.ResponseData> response = call.execute();
-            List<RepositoryDataModel> repositoriesData = response.body().getRepositories();
+            Response<List<RepositoryDataModel>> response = call.execute();
+            List<RepositoryDataModel> repositoriesData = response.body();
             List<Repository> repositories = repositoryDataMapper.toEntityList(repositoriesData);
 
             callback.onSuccess(repositories);
@@ -59,9 +64,4 @@ public class RepositoryDataSourceSpy implements RepositoryDataSource {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void getUserRepositoriesAtPageNumber(
-            String username, int pageNumber,
-            UseCaseCallback<List<Repository>, GetUserRepositoriesOutput.ErrorData> callback) {}
 }
