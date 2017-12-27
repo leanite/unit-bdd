@@ -7,17 +7,17 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
-import org.bitbucket.lcleite.desafioandroid.resource.ElapsedTimeIdlingResource;
 import org.bitbucket.lcleite.desafioandroid.resource.IntentServiceIdlingResource;
+import org.bitbucket.lcleite.desafioandroid.resource.RecyclerViewSizeAssertion;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity_;
 import org.bitbucket.lcleite.desafioandroid.ui.RepositoryListActivity_;
+import org.bitbucket.lcleite.desafioandroid.ui.UserDetailsActivity_;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -27,11 +27,14 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.intent.Intents.intended;
+import static org.bitbucket.lcleite.desafioandroid.resource.MatcherUtils.withIndex;
+import static org.bitbucket.lcleite.desafioandroid.resource.ViewActionUtils.waitFor;
 import static org.hamcrest.Matchers.greaterThan;
 
 /**
@@ -82,14 +85,22 @@ public class RepositoryListActivityTest {
         onView(withId(R.id.rvRepositoryList))
                 .perform(RecyclerViewActions.scrollToPosition(29));
 
-        IdlingResource idlingResource = new ElapsedTimeIdlingResource(1000);
-        Espresso.registerIdlingResources(idlingResource);
-
+        onView(isRoot()).perform(waitFor(2000));
         onView(withId(R.id.rvRepositoryList))
                 .check(new RecyclerViewSizeAssertion(greaterThan(30)))
                 .perform(RecyclerViewActions.scrollToPosition(35));
+    }
 
-        Espresso.unregisterIdlingResources(idlingResource);
+    @Test
+    public void itShould_goToUserDetailsActivity(){
+        Intents.init();
+
+        onView(withIndex(withId(R.id.ivUserProfile), 0))
+                .perform(click());
+
+        intended(hasComponent(UserDetailsActivity_.class.getName()));
+
+        Intents.release();
     }
 
     @Test
