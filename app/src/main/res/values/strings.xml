@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DesafioAndroid</string>
+    <string name="app_name">GitHub Java</string>
     <string name="openTabTitle">Open: ...</string>
     <string name="closedTabTitle">Closed: ...</string>
     <string name="empty_field">None</string>

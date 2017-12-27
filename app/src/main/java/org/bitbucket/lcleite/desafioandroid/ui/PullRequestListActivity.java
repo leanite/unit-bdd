@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import org.androidannotations.annotations.AfterViews;
@@ -30,7 +29,7 @@ import org.bitbucket.lcleite.desafioandroid.ui.fragment.OpenPullRequestListFragm
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@EActivity(R.layout.activity_pullrequestlist)
+@EActivity(R.layout.activity_pull_request_list)
 public class PullRequestListActivity extends AppCompatActivity implements PullRequestMainView {
     public static final String ARGS = "org.bitbucket.lcleite.PullRequestListActivity.ARGS";
     public static final String REPOSITORY_USERNAME = "org.bitbucket.lcleite.PullRequestListActivity.REPOSITORY_USERNAME";

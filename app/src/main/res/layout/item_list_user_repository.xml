@@ -39,8 +39,10 @@
         android:layout_width="@dimen/github_icon"
         android:layout_height="@dimen/github_icon"
         android:layout_marginTop="@dimen/spacing1x"
+        android:layout_marginLeft="@dimen/margin_extra_content"
         app:srcCompat="@drawable/ic_github_star"
-        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tvStars"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription"/>
 
     <TextView
