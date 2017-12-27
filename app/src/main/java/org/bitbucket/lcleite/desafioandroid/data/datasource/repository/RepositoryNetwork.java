@@ -7,6 +7,7 @@ import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 import org.bitbucket.lcleite.desafioandroid.interaction.repository.GetRepositoriesOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.userrepository.GetUserRepositoriesOutput;
+import org.bitbucket.lcleite.desafioandroid.utils.ErrorHandler;
 
 import java.util.List;
 
@@ -47,7 +48,11 @@ public class RepositoryNetwork implements RepositoryDataSource{
 
             @Override
             public void onFailure(Call<GetRepositoriesOutput.ResponseData> call, Throwable t) {
+                GetRepositoriesOutput.ErrorData errorData = new GetRepositoriesOutput.ErrorData();
 
+                errorData.setMessage(ErrorHandler.getErrorMessage(t));
+
+                callback.onError(errorData);
             }
         });
     }
@@ -70,7 +75,11 @@ public class RepositoryNetwork implements RepositoryDataSource{
 
             @Override
             public void onFailure(Call<List<RepositoryDataModel>> call, Throwable t) {
+                GetUserRepositoriesOutput.ErrorData errorData = new GetUserRepositoriesOutput.ErrorData();
 
+                errorData.setMessage(ErrorHandler.getErrorMessage(t));
+
+                callback.onError(errorData);
             }
         });
 

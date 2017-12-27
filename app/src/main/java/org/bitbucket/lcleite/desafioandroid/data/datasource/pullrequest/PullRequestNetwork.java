@@ -7,6 +7,7 @@ import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.interaction.amountpullrequest.GetAmountPullRequestsOutput;
 import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 import org.bitbucket.lcleite.desafioandroid.interaction.pullrequest.GetPullRequestsOutput;
+import org.bitbucket.lcleite.desafioandroid.utils.ErrorHandler;
 
 import java.util.List;
 
@@ -49,7 +50,11 @@ public class PullRequestNetwork implements PullRequestDataSource{
 
             @Override
             public void onFailure(Call<List<PullRequestDataModel>> call, Throwable t) {
+                GetPullRequestsOutput.ErrorData errorData = new GetPullRequestsOutput.ErrorData();
 
+                errorData.setMessage(ErrorHandler.getErrorMessage(t));
+
+                callback.onError(errorData);
             }
         });
     }
@@ -75,7 +80,13 @@ public class PullRequestNetwork implements PullRequestDataSource{
             }
 
             @Override
-            public void onFailure(Call<GetAmountPullRequestsOutput.ResponseData> call, Throwable t) {}
+            public void onFailure(Call<GetAmountPullRequestsOutput.ResponseData> call, Throwable t) {
+                GetAmountPullRequestsOutput.ErrorData errorData = new GetAmountPullRequestsOutput.ErrorData();
+
+                errorData.setMessage(ErrorHandler.getErrorMessage(t));
+
+                callback.onError(errorData);
+            }
         });
     }
 

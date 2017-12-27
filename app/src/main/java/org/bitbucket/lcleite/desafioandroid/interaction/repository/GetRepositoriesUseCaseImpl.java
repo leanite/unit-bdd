@@ -38,6 +38,6 @@ public class GetRepositoriesUseCaseImpl implements GetRepositoriesUseCase {
 
     @Override
     public void onError(GetRepositoriesOutput.ErrorData errorData) {
-
+        repositoryListPresenter.onGetRepositoriesError(errorData);
     }
 }

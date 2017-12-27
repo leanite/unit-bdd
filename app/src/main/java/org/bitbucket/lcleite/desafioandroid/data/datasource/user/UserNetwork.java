@@ -6,6 +6,7 @@ import org.bitbucket.lcleite.desafioandroid.data.service.UserRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
 import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
 import org.bitbucket.lcleite.desafioandroid.interaction.userdata.GetUserDataOutput;
+import org.bitbucket.lcleite.desafioandroid.utils.ErrorHandler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +42,11 @@ public class UserNetwork implements UserDataSource{
 
             @Override
             public void onFailure(Call<UserDataModel> call, Throwable t) {
+                GetUserDataOutput.ErrorData errorData = new GetUserDataOutput.ErrorData();
 
+                errorData.setMessage(ErrorHandler.getErrorMessage(t));
+
+                callback.onError(errorData);
             }
         });
     }

@@ -17,4 +17,6 @@ public interface UserDetailsView extends
         AppBarLayout.OnOffsetChangedListener, EndlessScrollListener.OnEndlessLoadListener {
     void updateUiWithUserDetails(User user);
     void updateUiWithUserRepositories(List<Repository> repositories);
+    void showErrorMessage(String message);
+    void updateUiAfterError();
 }

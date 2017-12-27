@@ -31,6 +31,6 @@ public class GetUserDataUseCaseImpl implements GetUserDataUseCase {
 
     @Override
     public void onError(GetUserDataOutput.ErrorData errorData) {
-
+        userDetailsPresenter.onGetUserDataError(errorData);
     }
 }

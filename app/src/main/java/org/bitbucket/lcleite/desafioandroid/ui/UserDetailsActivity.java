@@ -2,6 +2,7 @@ package org.bitbucket.lcleite.desafioandroid.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -176,6 +177,14 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
 
         userDetailsController.getUserRepositories(username, currentPage);
     }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Snackbar.make(repositoriesRecyclerView, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateUiAfterError() {}
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {

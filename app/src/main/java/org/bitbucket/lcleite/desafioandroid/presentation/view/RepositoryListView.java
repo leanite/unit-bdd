@@ -18,4 +18,6 @@ public interface RepositoryListView extends
 
     void updateRepositories(List<Repository> repositories);
     void updateUiAfterQuery();
+    void showErrorMessage(String message);
+    void updateUiAfterError();
 }

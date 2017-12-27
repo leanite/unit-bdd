@@ -34,6 +34,6 @@ public class GetUserRepositoriesUseCaseImpl implements GetUserRepositoriesUseCas
 
     @Override
     public void onError(GetUserRepositoriesOutput.ErrorData errorData) {
-
+        userDetailsPresenter.onGetUserRepositoriesError(errorData);
     }
 }

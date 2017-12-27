@@ -2,6 +2,7 @@ package org.bitbucket.lcleite.desafioandroid.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -151,6 +152,16 @@ public abstract class PullRequestListFragment extends Fragment implements PullRe
 
         swipeRefresh.setRefreshing(true);
         pullRequestListController.getPullRequests(repositoryUsername,repositoryName, getPullRequestState(), pullRequestListViewModel.getCurrentPage());
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Snackbar.make(pullRequestsRecyclerView, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateUiAfterError() {
+        swipeRefresh.setRefreshing(false);
     }
 
     abstract PullRequest.State getPullRequestState();

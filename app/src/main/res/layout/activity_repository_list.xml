@@ -15,7 +15,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refreshContainer"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/fill"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

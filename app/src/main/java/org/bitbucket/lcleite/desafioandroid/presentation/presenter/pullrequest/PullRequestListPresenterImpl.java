@@ -58,6 +58,7 @@ public class PullRequestListPresenterImpl implements PullRequestListPresenter {
 
     @Override
     public void onGetPullRequestsError(ErrorData errorData) {
-
+        pullRequestView.showErrorMessage(errorData.getMessage());
+        pullRequestView.updateUiAfterError();
     }
 }

@@ -1,11 +1,13 @@
 package org.bitbucket.lcleite.desafioandroid.ui;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -136,5 +138,15 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
     private void getRepositories(){
         swipeRefresh.setRefreshing(true);
         repositoryListController.getRepositories(repositoryListViewModel.getCurrentPage());
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        Snackbar.make(repositoriesRecyclerView, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateUiAfterError() {
+        swipeRefresh.setRefreshing(false);
     }
 }

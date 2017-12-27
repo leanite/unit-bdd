@@ -74,6 +74,7 @@ public class RepositoryListPresenterImpl implements RepositoryListPresenter {
 
     @Override
     public void onGetRepositoriesError(ErrorData errorData) {
-
+        repositoryView.showErrorMessage(errorData.getMessage());
+        repositoryView.updateUiAfterError();
     }
 }

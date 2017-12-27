@@ -33,7 +33,8 @@ public class UserDetailsPresenterImpl implements UserDetailsPresenter {
 
     @Override
     public void onGetUserDataError(GetUserDataOutput.ErrorData errorData) {
-
+        userView.showErrorMessage(errorData.getMessage());
+        userView.updateUiAfterError();
     }
 
     @Override
@@ -43,6 +44,7 @@ public class UserDetailsPresenterImpl implements UserDetailsPresenter {
 
     @Override
     public void onGetUserRepositoriesError(GetUserRepositoriesOutput.ErrorData errorData) {
-
+        userView.showErrorMessage(errorData.getMessage());
+        userView.updateUiAfterError();
     }
 }

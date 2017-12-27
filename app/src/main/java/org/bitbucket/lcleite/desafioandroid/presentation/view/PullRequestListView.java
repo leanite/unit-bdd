@@ -18,4 +18,6 @@ public interface PullRequestListView extends
 
     void updatePullRequests(List<PullRequest> pullRequests);
     void updateUiAfterQuery();
+    void showErrorMessage(String message);
+    void updateUiAfterError();
 }

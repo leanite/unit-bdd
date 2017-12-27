@@ -35,6 +35,6 @@ public class GetPullRequestsUseCaseImpl implements GetPullRequestsUseCase {
 
     @Override
     public void onError(GetPullRequestsOutput.ErrorData errorData) {
-
+        pullRequestListPresenter.onGetPullRequestsError(errorData);
     }
 }
