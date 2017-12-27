@@ -8,7 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -28,6 +31,8 @@ import org.bitbucket.lcleite.desafioandroid.ui.scroll.EndlessScrollListener;
 
 import javax.inject.Inject;
 
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+
 @EActivity(R.layout.activity_user_details)
 public class UserDetailsActivity extends AppCompatActivity implements UserDetailsView {
 
@@ -37,7 +42,9 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
     @ViewById(R.id.appBar) protected Toolbar appBar;
     @ViewById(R.id.appBarLayout) protected AppBarLayout appBarLayout;
     @ViewById(R.id.rvRepositoryList) protected RecyclerView repositoriesRecyclerView;
+    @ViewById(R.id.ivUserProfile) protected ImageView ivUserProfilePicture;
     @ViewById(R.id.tvUsername) protected TextView tvUsername;
+    @ViewById(R.id.tvName) protected TextView tvName;
 
     @Inject UserDetailsPresenter userDetailsPresenter;
     @Inject UserDetailsViewModel userDetailsViewModel;
@@ -145,6 +152,23 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
 
     @Override
     public void updateUiWithUserDetails(User user) {
+        saveUserData(user);
+        loadProfileImage(user);
         tvUsername.setText(user.getUsername());
+        tvName.setText(user.getName());
+    }
+
+    private void saveUserData(User user) {
+        userDetailsViewModel.setUser(user);
+    }
+
+    private void loadProfileImage(User user) {
+        Picasso.with(this)
+                .load(user.getAvatarUrl())
+                .placeholder(R.drawable.downloading_placeholder)
+                .error(R.drawable.downloading_error)
+                .resizeDimen(R.dimen.profile_pic_large, R.dimen.profile_pic_large)
+                .transform(new CropCircleTransformation())
+                .into(ivUserProfilePicture);
     }
 }
