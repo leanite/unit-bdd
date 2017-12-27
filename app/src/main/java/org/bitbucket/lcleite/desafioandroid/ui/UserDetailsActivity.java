@@ -117,6 +117,7 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
         String username = intentArgs.getString(USER_USERNAME);
 
         userDetailsController.getUserDetails(username);
+        userDetailsController.getUserRepositories(username, userDetailsViewModel.getCurrentPage());
     }
 
     @Override

@@ -1,9 +1,12 @@
 package org.bitbucket.lcleite.desafioandroid.injection;
 
+import org.bitbucket.lcleite.desafioandroid.data.datasource.repository.RepositoryDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.datasource.user.UserDataSource;
 import org.bitbucket.lcleite.desafioandroid.data.datasource.user.UserNetwork;
 import org.bitbucket.lcleite.desafioandroid.interaction.userdata.GetUserDataUseCase;
 import org.bitbucket.lcleite.desafioandroid.interaction.userdata.GetUserDataUseCaseImpl;
+import org.bitbucket.lcleite.desafioandroid.interaction.userrepository.GetUserRepositoriesUseCase;
+import org.bitbucket.lcleite.desafioandroid.interaction.userrepository.GetUserRepositoriesUseCaseImpl;
 import org.bitbucket.lcleite.desafioandroid.presentation.controller.user.UserDetailsController;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.user.UserDetailsPresenter;
 import org.bitbucket.lcleite.desafioandroid.presentation.presenter.user.UserDetailsPresenterImpl;
@@ -38,8 +41,13 @@ public class UserDetailsModule {
     }
 
     @Provides
-    public UserDetailsController provideUserDetailsController(GetUserDataUseCase useCase){
-        return new UserDetailsController(useCase);
+    public GetUserRepositoriesUseCase provideGetUserRepositoriesUseCase(RepositoryDataSource dataSource, UserDetailsPresenter presenter){
+        return new GetUserRepositoriesUseCaseImpl(dataSource, presenter);
+    }
+
+    @Provides
+    public UserDetailsController provideUserDetailsController(GetUserDataUseCase useCase, GetUserRepositoriesUseCase repositoriesUseCase){
+        return new UserDetailsController(useCase, repositoriesUseCase);
     }
 
     @Provides

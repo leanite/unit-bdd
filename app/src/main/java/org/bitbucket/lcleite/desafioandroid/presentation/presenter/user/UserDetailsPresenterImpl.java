@@ -1,9 +1,15 @@
 package org.bitbucket.lcleite.desafioandroid.presentation.presenter.user;
 
 import android.content.Context;
+import android.util.Log;
 
+import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
+import org.bitbucket.lcleite.desafioandroid.interaction.userdata.GetUserDataOutput;
+import org.bitbucket.lcleite.desafioandroid.interaction.userrepository.GetUserRepositoriesOutput;
 import org.bitbucket.lcleite.desafioandroid.presentation.view.UserDetailsView;
+
+import java.util.List;
 
 /**
  * Created by leandro on 26/12/2017.
@@ -26,7 +32,17 @@ public class UserDetailsPresenterImpl implements UserDetailsPresenter {
     }
 
     @Override
-    public void onGetUserDataError(ErrorData errorData) {
+    public void onGetUserDataError(GetUserDataOutput.ErrorData errorData) {
+
+    }
+
+    @Override
+    public void onGetUserRepositoriesSuccess(List<Repository> repositories) {
+        Log.d("","");
+    }
+
+    @Override
+    public void onGetUserRepositoriesError(GetUserRepositoriesOutput.ErrorData errorData) {
 
     }
 }

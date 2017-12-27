@@ -43,6 +43,7 @@ public class App extends Application {
         userDetailsComponent = DaggerUserDetailsComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .retrofitModule(new RetrofitModule())
+                .repositoryListModule(new RepositoryListModule())
                 .userDetailsModule(new UserDetailsModule())
                 .build();
     }

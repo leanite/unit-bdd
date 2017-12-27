@@ -6,6 +6,7 @@ import org.bitbucket.lcleite.desafioandroid.data.model.RepositoryDataModel;
 import org.bitbucket.lcleite.desafioandroid.data.service.RepositoryRetrofitService;
 import org.bitbucket.lcleite.desafioandroid.entity.Repository;
 import org.bitbucket.lcleite.desafioandroid.interaction.UseCaseCallback;
+import org.bitbucket.lcleite.desafioandroid.interaction.userrepository.GetUserRepositoriesOutput;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,5 +58,10 @@ public class RepositoryDataSourceSpy implements RepositoryDataSource {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void getUserRepositoriesAtPageNumber(String username, int pageNumber, UseCaseCallback<List<Repository>, GetUserRepositoriesOutput.ErrorData> callback) {
+        //FIXME: test
     }
 }
