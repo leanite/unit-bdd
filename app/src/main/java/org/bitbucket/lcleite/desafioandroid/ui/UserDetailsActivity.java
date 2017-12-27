@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -79,11 +78,11 @@ public class UserDetailsActivity extends AppCompatActivity implements UserDetail
         setupRepositoriesRecyclerView();
     }
 
-    private void setupAppBar() { //FIXME
-//        appBar.setTitle(getAppBarTitle());
-//        setSupportActionBar(appBar);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    private void setupAppBar() {
+        appBar.setTitle(getResources().getText(R.string.repositories));
+        setSupportActionBar(appBar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupAppBarLayout() {
