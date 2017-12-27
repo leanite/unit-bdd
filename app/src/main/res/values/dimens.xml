@@ -11,4 +11,5 @@
     <dimen name="app_bar_height">240dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="profile_pic_large">64dp</dimen>
+    <dimen name="background_view_height">80dp</dimen>
 </resources>

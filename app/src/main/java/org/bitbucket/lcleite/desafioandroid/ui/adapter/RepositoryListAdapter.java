@@ -93,7 +93,7 @@ public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAd
             ivUserProfile.setOnClickListener(this);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDescription = itemView.findViewById(R.id.tvText);
-            tvStars = itemView.findViewById(R.id.tvCreatedAt);
+            tvStars = itemView.findViewById(R.id.tvStars);
             tvForks = itemView.findViewById(R.id.tvMergedAt);
             tvIssues = itemView.findViewById(R.id.tvIssues);
         }

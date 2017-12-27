@@ -15,12 +15,10 @@ public class UserDetailsViewModel {
     private User user;
     private List<Repository> repositories;
     private int currentPage;
-    private int scrollRange;
 
     public UserDetailsViewModel() {
         repositories = new ArrayList<>();
         currentPage = 1;
-        scrollRange = -1;
     }
 
     public User getUser() {
@@ -39,31 +37,11 @@ public class UserDetailsViewModel {
         this.repositories.addAll(repositories);
     }
 
-    public void clearRepositories(){
-        this.repositories.clear();
-    }
-
-    public Repository getRepositoryAt(int position) {
-        return repositories.get(position);
-    }
-
     public void incrementPage(){
         currentPage += 1;
     }
 
     public int getCurrentPage(){
         return currentPage;
-    }
-
-    public void resetPage(){
-        currentPage = 1;
-    }
-
-    public int getScrollRange() {
-        return scrollRange;
-    }
-
-    public void setScrollRange(int scrollRange) {
-        this.scrollRange = scrollRange;
     }
 }

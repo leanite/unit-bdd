@@ -38,7 +38,7 @@ public class UserDetailsPresenterImpl implements UserDetailsPresenter {
 
     @Override
     public void onGetUserRepositoriesSuccess(List<Repository> repositories) {
-        Log.d("","");
+        userView.updateUiWithUserRepositories(repositories);
     }
 
     @Override
