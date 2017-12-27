@@ -15,10 +15,12 @@ public class UserDetailsViewModel {
     private User user;
     private List<Repository> repositories;
     private int currentPage;
+    private int scrollRange;
 
     public UserDetailsViewModel() {
         repositories = new ArrayList<>();
         currentPage = 1;
+        scrollRange = -1;
     }
 
     public User getUser() {
@@ -55,5 +57,13 @@ public class UserDetailsViewModel {
 
     public void resetPage(){
         currentPage = 1;
+    }
+
+    public int getScrollRange() {
+        return scrollRange;
+    }
+
+    public void setScrollRange(int scrollRange) {
+        this.scrollRange = scrollRange;
     }
 }

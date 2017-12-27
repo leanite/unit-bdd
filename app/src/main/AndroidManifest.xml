@@ -24,9 +24,8 @@
             android:name=".ui.PullRequestListActivity_"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".ui.UserDetailsActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:name=".ui.UserDetailsActivity_"
+            android:configChanges="orientation|screenSize"/>
     </application>
 
 </manifest>

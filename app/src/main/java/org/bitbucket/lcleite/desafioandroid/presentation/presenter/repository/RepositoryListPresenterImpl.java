@@ -10,6 +10,7 @@ import org.bitbucket.lcleite.desafioandroid.presentation.view.RepositoryListView
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity;
 import org.bitbucket.lcleite.desafioandroid.ui.PullRequestListActivity_;
 import org.bitbucket.lcleite.desafioandroid.ui.UserDetailsActivity;
+import org.bitbucket.lcleite.desafioandroid.ui.UserDetailsActivity_;
 
 import java.util.List;
 
@@ -38,18 +39,29 @@ public class RepositoryListPresenterImpl implements RepositoryListPresenter {
         context.startActivity(intent);
     }
 
-    @Override
-    public void goToUserDetailsActivity(User user) {
-        Intent intent = new Intent(context, UserDetailsActivity.class);
-
-        context.startActivity(intent);
-    }
-
     public Bundle getPullRequestActivityArgs(Repository repository) {
         Bundle bundle = new Bundle();
 
         bundle.putString(PullRequestListActivity.REPOSITORY_USERNAME, repository.getOwner().getUsername());
         bundle.putString(PullRequestListActivity.REPOSITORY_NAME, repository.getName());
+
+        return bundle;
+    }
+
+    @Override
+    public void goToUserDetailsActivity(User user) {
+        Intent intent = new Intent(context, UserDetailsActivity_.class);
+
+        Bundle args = getUserDetailsActivityArgs(user);
+        intent.putExtra(UserDetailsActivity.ARGS, args);
+
+        context.startActivity(intent);
+    }
+
+    private Bundle getUserDetailsActivityArgs(User user) {
+        Bundle bundle = new Bundle();
+
+        bundle.putString(UserDetailsActivity.USER_USERNAME, user.getUsername());
 
         return bundle;
     }

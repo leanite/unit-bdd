@@ -22,7 +22,7 @@ public class UserDetailsPresenterImpl implements UserDetailsPresenter {
 
     @Override
     public void onGetUserDataSuccess(User user) {
-
+        userView.updateUiWithUserDetails(user);
     }
 
     @Override

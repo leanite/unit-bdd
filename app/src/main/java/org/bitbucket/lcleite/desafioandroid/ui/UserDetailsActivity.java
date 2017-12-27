@@ -7,138 +7,109 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.ViewById;
 import org.bitbucket.lcleite.desafioandroid.R;
-import org.bitbucket.lcleite.desafioandroid.entity.Repository;
+import org.bitbucket.lcleite.desafioandroid.entity.PullRequest;
 import org.bitbucket.lcleite.desafioandroid.entity.User;
+import org.bitbucket.lcleite.desafioandroid.presentation.controller.user.UserDetailsController;
+import org.bitbucket.lcleite.desafioandroid.presentation.presenter.user.UserDetailsPresenter;
+import org.bitbucket.lcleite.desafioandroid.presentation.view.UserDetailsView;
+import org.bitbucket.lcleite.desafioandroid.presentation.viewmodel.UserDetailsViewModel;
 import org.bitbucket.lcleite.desafioandroid.ui.adapter.RepositoryListAdapter;
+import org.bitbucket.lcleite.desafioandroid.ui.app.App;
 import org.bitbucket.lcleite.desafioandroid.ui.divider.ListDivider;
+import org.bitbucket.lcleite.desafioandroid.ui.scroll.EndlessScrollListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Inject;
 
-public class UserDetailsActivity extends AppCompatActivity implements RepositoryListAdapter.OnItemClickListener {
+@EActivity(R.layout.activity_user_details)
+public class UserDetailsActivity extends AppCompatActivity implements UserDetailsView {
 
-    /*@ViewById(R.id.rvRepositoryList) */protected RecyclerView repositoriesRecyclerView;
+    public static final String ARGS = "org.bitbucket.lcleite.UserDetailsActivity.ARGS";
+    public static final String USER_USERNAME = "org.bitbucket.lcleite.UserDetailsActivity.USER_USERNAME";
+
+    @ViewById(R.id.appBar) protected Toolbar appBar;
+    @ViewById(R.id.appBarLayout) protected AppBarLayout appBarLayout;
+    @ViewById(R.id.rvRepositoryList) protected RecyclerView repositoriesRecyclerView;
+    @ViewById(R.id.tvUsername) protected TextView tvUsername;
+
+    @Inject UserDetailsPresenter userDetailsPresenter;
+    @Inject UserDetailsViewModel userDetailsViewModel;
+    @Inject UserDetailsController userDetailsController;
+
+    @Extra(ARGS) Bundle intentArgs;
+
     RepositoryListAdapter repositoriesAdapter;
+    EndlessScrollListener endlessScrollListener;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_details);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.appBar);
-        setSupportActionBar(toolbar);
+    @AfterViews
+    protected void setup(){
+        setupInjection();
+        setupViews();
+        setupPresenters();
+        onSetupDone();
+    }
 
-        repositoriesRecyclerView = findViewById(R.id.rvRepositoryList);
+    private void setupInjection(){
+        ((App) getApplication()).getUserDetailsComponent().inject(this);
+    }
+
+    private void setupViews(){
+        setupAppBar();
+        setupAppBarLayout();
         setupRepositoriesRecyclerViewAdapter();
         setupRepositoriesRecyclerView();
+    }
 
-        AppBarLayout appBarLayout = findViewById(R.id.appBarLayout);
+    private void setupAppBar() {
+//        appBar.setTitle(getAppBarTitle());
+//        setSupportActionBar(appBar);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            int scrollRange = -1;
+    private void setupAppBarLayout() {
+        appBarLayout.addOnOffsetChangedListener(this);
+    }
 
-            @Override
-            public void onOffsetChanged(final AppBarLayout appBarLayout, int verticalOffset) {
-                //Initialize the size of the scroll
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                //Check if the view is collapsed
-                if (scrollRange + verticalOffset == 0) {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(UserDetailsActivity.this, R.color.colorPrimary));
-                }else{
-                    toolbar.setBackgroundColor(ContextCompat.getColor(UserDetailsActivity.this, android.R.color.transparent));
-                }
-            }
-        });
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 
     private void setupRepositoriesRecyclerViewAdapter(){
-        repositoriesAdapter = new RepositoryListAdapter(mockRepositories());
+        repositoriesAdapter = new RepositoryListAdapter(userDetailsViewModel.getRepositories());
         repositoriesAdapter.setOnItemClickListener(this);
     }
 
-    private List<Repository> mockRepositories() {
-        List<Repository> repositories = new ArrayList<>();
-
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-        repositories.add(createRepo());
-
-        return repositories;
-    }
-
-    private Repository createRepo(){
-        Repository repository = new Repository();
-
-        User user = new User();
-        user.setUsername("lcleite");
-
-        repository.setOwner(user);
-        repository.setName("project");
-        repository.setDescription("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
-        return repository;
-    }
-
     private void setupRepositoriesRecyclerView() {
-//        endlessScrollListener = new EndlessScrollListener(this);
+        endlessScrollListener = new EndlessScrollListener(this);
         repositoriesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         repositoriesRecyclerView.setAdapter(repositoriesAdapter);
         repositoriesRecyclerView.addItemDecoration(
                 new ListDivider(ContextCompat.getDrawable(this, R.drawable.divider_item_list)));
-//        repositoriesRecyclerView.addOnScrollListener(endlessScrollListener);
+        repositoriesRecyclerView.addOnScrollListener(endlessScrollListener);
+    }
+
+    private void setupPresenters(){
+        userDetailsPresenter.setView(this);
+    }
+
+    private void onSetupDone(){
+        String username = intentArgs.getString(USER_USERNAME);
+
+        userDetailsController.getUserDetails(username);
     }
 
     @Override
@@ -149,5 +120,31 @@ public class UserDetailsActivity extends AppCompatActivity implements Repository
     @Override
     public void onUserAvatarClick(int position) {
 
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (userDetailsViewModel.getScrollRange() == -1) { //FIXME: ?
+            userDetailsViewModel.setScrollRange(appBarLayout.getTotalScrollRange());
+        }
+
+        if (appBarLayoutIsCollapsed(verticalOffset))
+            appBar.setBackgroundColor(ContextCompat.getColor(UserDetailsActivity.this, R.color.colorPrimary));
+        else
+            appBar.setBackgroundColor(ContextCompat.getColor(UserDetailsActivity.this, android.R.color.transparent));
+    }
+
+    private boolean appBarLayoutIsCollapsed(int verticalOffset) {
+        return userDetailsViewModel.getScrollRange() + verticalOffset == 0;
+    }
+
+    @Override
+    public void endlessLoadMoreItems() {
+
+    }
+
+    @Override
+    public void updateUiWithUserDetails(User user) {
+        tvUsername.setText(user.getUsername());
     }
 }
