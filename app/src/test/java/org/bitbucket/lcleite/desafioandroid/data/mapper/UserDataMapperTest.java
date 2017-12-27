@@ -35,6 +35,9 @@ public class UserDataMapperTest {
         userDataModel.setUsername("lcleite");
         userDataModel.setName("Leandro Leite");
         userDataModel.setAvatarUrl("http://me.com/avatar");
+        userDataModel.setWebsiteUrl("http://me.com");
+        userDataModel.setLocation("Brazil");
+        userDataModel.setAmountRepositories(20);
 
         return userDataModel;
     }
@@ -46,6 +49,9 @@ public class UserDataMapperTest {
         user.setUsername("lcleite");
         user.setName("Leandro Leite");
         user.setAvatarUrl("http://me.com/avatar");
+        user.setWebsiteUrl("http://me.com");
+        user.setLocation("Brazil");
+        user.setAmountRepositories(20);
 
         return user;
     }

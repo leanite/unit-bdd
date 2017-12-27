@@ -19,6 +19,9 @@ public class UserDataModelMapper implements DataModelMapper<User, UserDataModel>
         user.setUsername(dataModel.getUsername());
         user.setName(dataModel.getName());
         user.setAvatarUrl(dataModel.getAvatarUrl());
+        user.setLocation(dataModel.getLocation());
+        user.setWebsiteUrl(dataModel.getWebsiteUrl());
+        user.setAmountRepositories(dataModel.getAmountRepositories());
 
         return user;
     }
