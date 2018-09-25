@@ -14,15 +14,15 @@ import static org.junit.Assert.assertNotEquals;
 public class Testy {
 
     RepositoryListPresenterSpy presenter;
-    RepositoryDataSourceNoRetrofit dataSource;
+    RepositoryService service;
     GetRepositoriesUseCase useCase;
     RepositoryListController controller;
 
     @Before
     public void setup(){
         presenter = new RepositoryListPresenterSpy();
-        dataSource = new RepositoryDataSourceNoRetrofit();
-        useCase = new GetRepositoriesUseCaseImpl(dataSource, presenter);
+        service = new RepositoryService(new RepositoryDataSourceNoRetrofit());
+        useCase = new GetRepositoriesUseCaseImpl(service, presenter);
         controller = new RepositoryListController(useCase);
     }
 
